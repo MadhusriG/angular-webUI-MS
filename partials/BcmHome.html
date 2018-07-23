@@ -1,0 +1,668 @@
+<div ng-controller="BcmHomeController">
+	<div class="header-layout clearfix"  style="border: #d8d8d8 1px solid; background: white; box-shadow: 0px 2px 5px #d8d8d8;">  
+		BCM Home
+	</div>
+	
+	<div class="table-graph-icon-layout clearfix">
+		<table class="table table-graph-icon-content">
+			<tbody>
+				<tr>
+					<td ng-click="toggleViewTableGraph($event, $index)" class="active-text-link" id="graphModeId">
+						<i class="fa fa-bar-chart graph-table-glyphicon" aria-hidden="true"></i>
+					</td>
+					<td ng-click="toggleViewTableGraph($event, $index)" id="tableModeId">
+						<i class="fa fa-table graph-table-glyphicon" aria-hidden="true"></i>
+					</td>
+					<td ng-click="toggleViewTableGraph($event, $index)" id="settingsModeId">
+						<i class="fa fa-cog graph-table-glyphicon" aria-hidden="true"></i>
+					</td>
+				</tr>
+			</tbody>				
+		</table>			
+	</div>
+	
+	<!-- Graphical View -->
+	<div class="clearfix panel-service" ng-if="toggleViewMode.graph">
+		
+		<div class="card-layout-bcm-home-graph clearfix box-shadow">
+			<table class="table">
+				<tbody>
+					<tr class="bcm-home-panel-header">
+						<td class="bcm-home-panel-header-left">
+							<div>
+								Panel 1
+							</div>
+						</td>
+						<td class="bcm-home-panel-header-right">
+							<div ng-if="panelConfig1.OnOff==='On'">
+								<a href="#/bcmhome"><img src="./images/icons/status/{{voltageResponse1.Status.Status}}.png" /></a>
+							</div>
+							<div ng-if="panelConfig1.OnOff==='Off'">
+								Off
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td ng-if="showCanvas" colspan="2">
+							<div>												
+								<canvas class="chart-bar bcm-chart-container mini-canvas" chart-options="options" chart-data="panelData1"  chart-labels="labelsVoltageHarmonics" chart-colors="colorsVoltageHarmonics" chart-series="seriesVoltageHarmonics"></canvas> 
+							</div>
+						</td>	
+					</tr>
+				</tbody>				
+			</table>
+		</div>		
+
+		<div class="card-layout-bcm-home-graph clearfix box-shadow">
+			<table class="table">
+				<tbody>
+					<tr class="bcm-home-panel-header">
+						<td class="bcm-home-panel-header-left">
+							<div>
+								Panel 2
+							</div>
+						</td>
+						<td class="bcm-home-panel-header-right">
+							<div ng-if="panelConfig2.OnOff==='On'">
+								<a href="#/bcmhome"><img src="./images/icons/status/{{voltageResponse2.Status.Status}}.png" /></a>
+							</div>
+							<div ng-if="panelConfig2.OnOff==='Off'">
+								Off
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td ng-if="showCanvas" colspan="2">
+							<canvas class="chart-bar bcm-chart-container mini-canvas" chart-options="options" chart-data="panelData2"  chart-labels="labelsVoltageHarmonics" chart-colors="colorsVoltageHarmonics" chart-series="seriesVoltageHarmonics"></canvas> 
+						</td>	
+					</tr>
+				</tbody>				
+			</table>
+		</div>
+		  
+		<div class="card-layout-bcm-home-graph clearfix box-shadow">
+			<table class="table">
+				<tbody>
+					<tr class="bcm-home-panel-header">
+						<td class="bcm-home-panel-header-left">
+							<div>
+								Panel 3
+							</div>
+						</td>
+						<td class="bcm-home-panel-header-right">
+							<div ng-if="panelConfig3.OnOff==='On'">
+								<a href="#/bcmhome"><img src="./images/icons/status/{{voltageResponse3.Status.Status}}.png" /></a>
+							</div>
+							<div ng-if="panelConfig3.OnOff==='Off'">
+								Off
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td ng-if="showCanvas" colspan="2">
+							<canvas class="chart-bar bcm-chart-container mini-canvas" chart-options="options" chart-data="panelData3"  chart-labels="labelsVoltageHarmonics" chart-colors="colorsVoltageHarmonics" chart-series="seriesVoltageHarmonics"></canvas> 
+						</td>	
+					</tr>
+				</tbody>				
+			</table>
+		</div>	
+			
+		<div class="card-layout-bcm-home-graph clearfix box-shadow">
+			<table class="table">
+				<tbody>
+					<tr class="bcm-home-panel-header">
+						<td class="bcm-home-panel-header-left">
+							<div>
+								Panel 4
+							</div>
+						</td>
+						<td class="bcm-home-panel-header-right">
+							<div ng-if="panelConfig4.OnOff==='On'">
+								<a href="#/bcmhome"><img src="./images/icons/status/{{voltageResponse4.Status.Status}}.png" /></a>
+							</div>
+							<div ng-if="panelConfig4.OnOff==='Off'">
+								Off
+							</div>
+						</td>
+					</tr>
+					<tr>						
+						<td ng-if="showCanvas" colspan="2">
+							<canvas class="chart-bar bcm-chart-container mini-canvas" chart-options="options" chart-data="panelData4"  chart-labels="labelsVoltageHarmonics" chart-colors="colorsVoltageHarmonics" chart-series="seriesVoltageHarmonics"></canvas> 
+						</td>	
+					</tr>
+				</tbody>				
+			</table>
+		</div>
+		
+	</div>
+
+	<!-- Table View -->
+	<div class="clearfix panel-service" ng-if="toggleViewMode.table">
+		
+		<div class="card-layout-bcm-home-table clearfix box-shadow">	
+			<table class="table">
+				<tbody>
+					<tr class="bcm-home-panel-header">
+						<td class="bcm-home-panel-header-left">
+							<div>
+								Panel 1
+							</div>
+						</td>
+						<td class="bcm-home-panel-header-right">
+							<div ng-if="panelConfig1.OnOff==='On'">
+								<a href="#/bcmhome"><img src="./images/icons/status/{{voltageResponse1.Status.Status}}.png" /></a>
+							</div>
+							<div ng-if="panelConfig1.OnOff==='Off'">
+								Off
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td class="pdu-metering-status-panel-content" colspan="2" style="padding-left: 15px; padding-right: 15px;">
+							<table class="table">
+								<thead>
+								  <tr>
+								     <th class="bcm-home-table-header"></th>
+								     <th class="bcm-home-table-header">A</th>
+								     <th class="bcm-home-table-header">B</th>
+								     <th class="bcm-home-table-header">C</th>
+								  </tr>
+								</thead>
+								<tbody>		
+									<tr>
+										<td class="col-xs-3 bcm-home-table-content-no-bold">Volt</td>
+										<td class="col-xs-3 bcm-home-table-content">{{voltageResponseValue1.Voltage.L1.toFixed(2)}} V</td>
+										<td class="col-xs-3 bcm-home-table-content">{{voltageResponseValue1.Voltage.L2.toFixed(2)}} V</td>
+										<td class="col-xs-3 bcm-home-table-content">{{voltageResponseValue1.Voltage.L3.toFixed(2)}} V</td>
+									</tr>							
+									<tr>
+										<td class="col-xs-3 bcm-home-table-content-no-bold">Current</td>
+										<td class="col-xs-3 bcm-home-table-content">{{currentResponse1.Current.L1.toFixed(2)}} A</td>
+										<td class="col-xs-3 bcm-home-table-content">{{currentResponse1.Current.L2.toFixed(2)}} A</td>
+										<td class="col-xs-3 bcm-home-table-content">{{currentResponse1.Current.L3.toFixed(2)}} A</td>
+									</tr>
+										
+									<tr>
+										<td class="col-xs-3 bcm-home-table-content-no-bold">Frequency</td>
+										<td class="col-xs-3 bcm-home-table-content"></td>
+										<td class="col-xs-3 bcm-home-table-content">{{voltageResponse1.Frequency.Hz}} Hz</td>
+										<td class="bcm-home-table-content"></td>
+									</tr>
+								</tbody>
+							</table>
+						</td>
+					</tr>
+				</tbody>				
+			</table>
+		</div>
+		
+		<div class="card-layout-bcm-home-table clearfix box-shadow">
+			<table class="table">
+				<tbody>
+					<tr class="bcm-home-panel-header">
+						<td class="bcm-home-panel-header-left">
+							<div>
+								Panel 2
+							</div>
+						</td>
+						<td class="bcm-home-panel-header-right">
+							<div ng-if="panelConfig2.OnOff==='On'">
+								<a href="#/bcmhome"><img src="./images/icons/status/{{voltageResponse2.Status.Status}}.png" /></a>
+							</div>
+							<div ng-if="panelConfig2.OnOff==='Off'">
+								Off
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td class="pdu-metering-status-panel-content" colspan="2" style="padding-left: 15px; padding-right: 15px;">
+							<table class="table">
+								<thead>
+								  <tr>
+								     <th class="bcm-home-table-header"></th>
+								     <th class="bcm-home-table-header">A</th>
+								     <th class="bcm-home-table-header">B</th>
+								     <th class="bcm-home-table-header">C</th>
+								  </tr>
+								</thead>
+								<tbody>		
+									<tr>
+										<td class="col-xs-3 bcm-home-table-content-no-bold">Volt</td>
+										<td class="col-xs-3 bcm-home-table-content">{{voltageResponseValue2.Voltage.L1.toFixed(2)}} V</td>
+										<td class="col-xs-3 bcm-home-table-content">{{voltageResponseValue2.Voltage.L2.toFixed(2)}} V</td>
+										<td class="col-xs-3 bcm-home-table-content">{{voltageResponseValue2.Voltage.L3.toFixed(2)}} V</td>
+									</tr>							
+									<tr>
+										<td class="col-xs-3 bcm-home-table-content-no-bold">Current</td>
+										<td class="col-xs-3 bcm-home-table-content">{{currentResponse2.Current.L1.toFixed(2)}} A</td>
+										<td class="col-xs-3 bcm-home-table-content">{{currentResponse2.Current.L2.toFixed(2)}} A</td>
+										<td class="col-xs-3 bcm-home-table-content">{{currentResponse2.Current.L3.toFixed(2)}} A</td>
+									</tr>
+									<tr>
+										<td class="col-xs-3 bcm-home-table-content-no-bold">Frequency</td>
+										<td class="col-xs-3 bcm-home-table-content"></td>
+										<td class="col-xs-3 bcm-home-table-content">{{voltageResponse2.Frequency.Hz}} Hz</td>
+										<td class="bcm-home-table-content"></td>
+									</tr>
+								</tbody>
+							</table>
+						</td>
+					</tr>
+				</tbody>				
+			</table>
+		</div>
+		
+		<div class="card-layout-bcm-home-table clearfix box-shadow">
+			<table class="table">
+				<tbody>
+					<tr class="bcm-home-panel-header">
+						<td class="bcm-home-panel-header-left">
+							<div>
+								Panel 3
+							</div>
+						</td>
+						<td class="bcm-home-panel-header-right">
+							<div>
+								<div ng-if="panelConfig3.OnOff==='On'">
+								<a href="#/bcmhome"><img src="./images/icons/status/{{voltageResponse3.Status.Status}}.png" /></a>
+							</div>
+							<div ng-if="panelConfig3.OnOff==='Off'">
+								Off
+							</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td class="pdu-metering-status-panel-content" colspan="2" style="padding-left: 15px; padding-right: 15px;">
+							<table class="table">
+								<thead>
+								  <tr>
+								     <th class="bcm-home-table-header"></th>
+								     <th class="bcm-home-table-header">A</th>
+								     <th class="bcm-home-table-header">B</th>
+								     <th class="bcm-home-table-header">C</th>
+								  </tr>
+								</thead>
+								<tbody>		
+									<tr>
+										<td class="col-xs-3 bcm-home-table-content-no-bold">Volt</td>
+										<td class="col-xs-3 bcm-home-table-content">{{voltageResponseValue3.Voltage.L1.toFixed(2)}} V</td>
+										<td class="col-xs-3 bcm-home-table-content">{{voltageResponseValue3.Voltage.L2.toFixed(2)}} V</td>
+										<td class="col-xs-3 bcm-home-table-content">{{voltageResponseValue3.Voltage.L3.toFixed(2)}} V</td>
+									</tr>							
+									<tr>
+										<td class="col-xs-3 bcm-home-table-content-no-bold">Current</td>
+										<td class="col-xs-3 bcm-home-table-content">{{currentResponse3.Current.L1.toFixed(2)}} A</td>
+										<td class="col-xs-3 bcm-home-table-content">{{currentResponse3.Current.L2.toFixed(2)}} A</td>
+										<td class="col-xs-3 bcm-home-table-content">{{currentResponse3.Current.L3.toFixed(2)}} A</td>
+									</tr>
+									<tr>
+										<td class="col-xs-3 bcm-home-table-content-no-bold">Frequency</td>
+										<td class="col-xs-3 bcm-home-table-content"></td>
+										<td class="col-xs-3 bcm-home-table-content">{{voltageResponse3.Frequency.Hz}} Hz</td>
+										<td class="bcm-home-table-content"></td>
+									</tr>
+								</tbody>
+							</table>
+						</td>
+					</tr>
+				</tbody>				
+			</table>
+		</div>
+		
+		<div class="card-layout-bcm-home-table clearfix box-shadow">   
+			<table class="table">
+				<tbody>
+					<tr class="bcm-home-panel-header">
+						<td class="bcm-home-panel-header-left">
+							<div>
+								Panel 4
+							</div>
+						</td>
+						<td class="bcm-home-panel-header-right">
+							<div ng-if="panelConfig4.OnOff==='On'">
+								<a href="#/bcmhome"><img src="./images/icons/status/{{voltageResponse4.Status.Status}}.png" /></a>
+							</div>
+							<div ng-if="panelConfig4.OnOff==='Off'">
+								Off
+							</div>
+						</td>
+					</tr>
+					<tr>						
+						<td class="pdu-metering-status-panel-content" colspan="2" style="padding-left: 15px; padding-right: 15px;">
+							<table class="table">
+								<thead>
+								  <tr>
+								     <th class="bcm-home-table-header"></th>
+								     <th class="bcm-home-table-header">A</th>
+								     <th class="bcm-home-table-header">B</th>
+								     <th class="bcm-home-table-header">C</th>
+								  </tr>
+								</thead>
+								<tbody>		
+									<tr>
+										<td class="col-xs-3 bcm-home-table-content-no-bold">Volt</td>
+										<td class="col-xs-3 bcm-home-table-content">{{voltageResponseValue4.Voltage.L1.toFixed(2)}} V</td>
+										<td class="col-xs-3 bcm-home-table-content">{{voltageResponseValue4.Voltage.L2.toFixed(2)}} V</td>
+										<td class="col-xs-3 bcm-home-table-content">{{voltageResponseValue4.Voltage.L3.toFixed(2)}} V</td>
+									</tr>							
+									<tr>
+										<td class="col-xs-3 bcm-home-table-content-no-bold">Current</td>
+										<td class="col-xs-3 bcm-home-table-content">{{currentResponse4.Current.L1.toFixed(2)}} A</td>
+										<td class="col-xs-3 bcm-home-table-content">{{currentResponse4.Current.L2.toFixed(2)}} A</td>
+										<td class="col-xs-3 bcm-home-table-content">{{currentResponse4.Current.L3.toFixed(2)}} A</td>
+									</tr>
+									<tr>
+										<td class="col-xs-3 bcm-home-table-content-no-bold">Frequency</td>
+										<td class="col-xs-3 bcm-home-table-content"></td>
+										<td class="col-xs-3 bcm-home-table-content">{{voltageResponse4.Frequency.Hz}} Hz</td>
+										<td class="bcm-home-table-content"></td>
+									</tr>
+								</tbody>
+							</table>
+						</td>
+					</tr>
+				</tbody>				
+			</table>
+		</div>
+	</div>
+	
+	<!-- Settings Mode -->
+	<div class="clearfix panel-service" ng-if="toggleViewMode.settings">
+		<div class="clearfix save-discard-container"  ng-if="editMode">
+			<button class="pull-right boxbackground button-grp-1" ng-click="saveChanges()"><span class="glyphicon glyphicon-ok"></span> &nbsp; Save</button>
+			<button class="pull-right boxbackground button-grp" ng-click="discardChanges()"><span class="glyphicon glyphicon-remove"></span> &nbsp; Discard Changes</button>
+		</div>
+		
+		<div class="clearfix overlay-block-bcm"  ng-if="panelConfigEditMode">
+			<button class="pull-right boxbackground button-grp-1" style="margin-top: 4px" ng-click="saveChanges()"><span class="glyphicon glyphicon-ok"></span> &nbsp; Save</button>
+			<button class="pull-right boxbackground button-grp" style="margin-top: 4px" ng-click="discardChanges()"><span class="glyphicon glyphicon-remove"></span> &nbsp; Discard Changes</button>
+		</div>
+		
+		<div class="card-layout-bcm-home-settings clearfix box-shadow" style="width: 97%;">		
+			<div class="col-xs-10 bcm-settings-table-panel">
+				<table class="table" style="margin-bottom: 0;border: 0">
+					<caption>BCM Settings</caption>
+					<tbody>		
+						<tr>
+							<td class="col-xs-3 bcm-meters-paneltable-content" style="padding-left: 5px;">
+								Panel Number
+							</td>	
+							<td class="bcm-meters-paneltable-content">
+								<select ng-model="selectedPanelNumber" ng-options="panelNumber for panelNumber in panelNumbers" ng-change="panelChanged(selectedPanelNumber);" style="width:50px">								
+								</select>								
+							</td>
+							<td class="bcm-meters-paneltable-content">
+															
+							</td>
+						</tr>
+				</table>
+			</div>
+		</div>
+		<!-- Panel Limits View -->
+		<div class="card-layout-bcm-home-settings card-layout-bcm-home-settings-panel-limits clearfix box-shadow"> 
+		
+			<div class="col-xs-10 bcm-settings-table-panel">	
+				<table class="table" style="margin-bottom: 0;border: #d8d8d8 1px solid;">
+					<caption>Panel Limits</caption>
+					<tbody>		
+						<tr>
+							<td class="col-xs-2 pdu-metering-thermal-panel-header bcm-meters-configuration-content td-center-align" style="border: #ffffff 1px solid; border-right: #d8d8d8 1px solid; background: white;">
+							</td>	
+							<td class="col-xs-5 pdu-metering-thermal-panel-header bcm-meters-configuration-content td-center-align" colspan="2">
+									Limit							
+							</td>
+							<td class="col-xs-5 pdu-metering-thermal-panel-header bcm-meters-configuration-content td-center-align" colspan="2">
+								<div>Delay</div>
+							</td>	
+						</tr>
+						
+						<tr>
+							<td class="col-xs-2 pdu-metering-thermal-panel-header bcm-meters-configuration-content td-center-align" style="border: #ffffff 1px solid; border-right: #d8d8d8 1px solid; border-bottom: #d8d8d8 1px solid; background: white;">
+							</td>	
+							<td class="pdu-metering-thermal-panel-header bcm-meters-configuration-content td-center-align">
+								Alarm
+							</td>
+							<td class="pdu-metering-thermal-panel-header bcm-meters-configuration-content td-center-align">
+								Warning
+							</td>
+							<td class="pdu-metering-thermal-panel-header bcm-meters-configuration-content td-center-align">
+								Alarm
+							</td>
+							<td class="pdu-metering-thermal-panel-header bcm-meters-configuration-content td-center-align">
+								Warning
+							</td>
+						</tr>
+						
+						<tr  class="pdu-metering-output-table-row">
+							<td class="col-xs-2 pdu-metering-output-table-content pdu-settings-limits-content td-center-align">
+								Over Current (%)
+							</td>
+							<td class="pdu-metering-output-table-content bcm-meters-configuration-content td-center-align">									
+								<span editable-number="panelConfigLimitsAlarm.OverCurrent" e-step="{{panelLimitsAttributes.Alarm.OverCurrent[2]}}" e-max="{{panelLimitsAttributes.Alarm.OverCurrent[1]}}" e-min="{{panelLimitsAttributes.Alarm.OverCurrent[0]}}" e-inputgroupright="Min:{{panelLimitsAttributes.Alarm.OverCurrent[0]}} Max:{{panelLimitsAttributes.Alarm.OverCurrent[1]}}" onaftersave="editModeFeatureValue($data,'Alarm', 'OverCurrent', 'Panel Limits');">{{panelConfigLimitsAlarm.OverCurrent}}</span>							
+							</td>						
+							<td class="pdu-metering-output-table-content bcm-meters-configuration-content td-center-align">							
+								<span editable-number="panelConfigLimitsWarning.OverCurrent" e-step="{{panelLimitsAttributes.Warning.OverCurrent[2]}}" e-max="{{panelLimitsAttributes.Warning.OverCurrent[1]}}" e-min="{{panelLimitsAttributes.Warning.OverCurrent[0]}}" e-inputgroupright="Min:{{panelLimitsAttributes.Warning.OverCurrent[0]}} Max:{{panelLimitsAttributes.Warning.OverCurrent[1]}}" onaftersave="editModeFeatureValue($data,'Warning', 'OverCurrent', 'Panel Limits');">{{panelConfigLimitsWarning.OverCurrent}}</span>
+							</td>
+							<td class="pdu-metering-output-table-content bcm-meters-configuration-content td-center-align" rowspan="2">
+								<span editable-number="panelConfigLimitsAlarm.CurrentDelay" e-step="{{panelLimitsAttributes.Alarm.CurrentDelay[2]}}" e-max="{{panelLimitsAttributes.Alarm.CurrentDelay[1]}}" e-min="{{panelLimitsAttributes.Alarm.CurrentDelay[0]}}" e-inputgroupright="Min:{{panelLimitsAttributes.Alarm.CurrentDelay[0]}} Max:{{panelLimitsAttributes.Alarm.CurrentDelay[1]}}" onaftersave="editModeFeatureValue($data,'Alarm', 'CurrentDelay', 'Panel Limits');">{{panelConfigLimitsAlarm.CurrentDelay}}</span>
+							</td>						
+							<td class="pdu-metering-output-table-content bcm-meters-configuration-content td-center-align" rowspan="2">
+								<span editable-number="panelConfigLimitsWarning.CurrentDelay" e-step="{{panelLimitsAttributes.Warning.CurrentDelay[2]}}" e-max="{{panelLimitsAttributes.Warning.CurrentDelay[1]}}" e-min="{{panelLimitsAttributes.Warning.CurrentDelay[0]}}" e-inputgroupright="Min:{{panelLimitsAttributes.Warning.CurrentDelay[0]}} Max:{{panelLimitsAttributes.Warning.CurrentDelay[1]}}" onaftersave="editModeFeatureValue($data,'Warning', 'CurrentDelay', 'Panel Limits');">{{panelConfigLimitsWarning.CurrentDelay}}</span>							
+							</td>
+						</tr>
+						
+						<tr  class="pdu-metering-output-table-row">
+							<td class="col-xs-2 pdu-metering-output-table-content pdu-settings-limits-content td-center-align">
+								Under Current (%)
+							</td>
+							<td class="pdu-metering-output-table-content bcm-meters-configuration-content td-center-align">									
+								<span editable-number="panelConfigLimitsAlarm.UnderCurrent" e-step="{{panelLimitsAttributes.Alarm.UnderCurrent[2]}}" e-max="{{panelLimitsAttributes.Alarm.UnderCurrent[1]}}" e-min="{{panelLimitsAttributes.Alarm.UnderCurrent[0]}}" e-inputgroupright="Min:{{panelLimitsAttributes.Alarm.UnderCurrent[0]}} Max:{{panelLimitsAttributes.Alarm.UnderCurrent[1]}}" onaftersave="editModeFeatureValue($data,'Alarm', 'UnderCurrent', 'Panel Limits');">{{panelConfigLimitsAlarm.UnderCurrent}}</span>							
+							</td>						
+							<td class="pdu-metering-output-table-content bcm-meters-configuration-content td-center-align">
+								{{}}
+							</td>
+						</tr>
+						
+						<tr  class="pdu-metering-output-table-row">
+							<td class="col-xs-2 pdu-metering-output-table-content pdu-settings-limits-content td-center-align">
+								Over Voltage (%)
+							</td>
+							<td class="pdu-metering-output-table-content bcm-meters-configuration-content td-center-align">							
+								<span editable-number="panelConfigLimitsAlarm.OverVoltage" e-step="{{panelLimitsAttributes.Alarm.OverVoltage[2]}}" e-max="{{panelLimitsAttributes.Alarm.OverVoltage[1]}}" e-min="{{panelLimitsAttributes.Alarm.OverVoltage[0]}}" e-inputgroupright="Min:{{panelLimitsAttributes.Alarm.OverVoltage[0]}} Max:{{panelLimitsAttributes.Alarm.OverVoltage[1]}}" onaftersave="editModeFeatureValue($data,'Alarm', 'OverVoltage', 'Panel Limits');">{{panelConfigLimitsAlarm.OverVoltage}}</span>							
+							</td>						
+							<td class="pdu-metering-output-table-content bcm-meters-configuration-content td-center-align">							
+								<span editable-number="panelConfigLimitsWarning.OverVoltage" e-step="{{panelLimitsAttributes.Warning.OverVoltage[2]}}" e-max="{{panelLimitsAttributes.Warning.OverVoltage[1]}}" e-min="{{panelLimitsAttributes.Warning.OverVoltage[0]}}" e-inputgroupright="Min:{{panelLimitsAttributes.Warning.OverVoltage[0]}} Max:{{panelLimitsAttributes.Warning.OverVoltage[1]}}" onaftersave="editModeFeatureValue($data,'Warning', 'OverVoltage', 'Panel Limits');">{{panelConfigLimitsWarning.OverVoltage}}</span>							
+							</td>
+							<td class="pdu-metering-output-table-content bcm-meters-configuration-content td-center-align" rowspan="2">
+								<span editable-number="panelConfigLimitsAlarm.VoltageDelay" e-step="{{panelLimitsAttributes.Alarm.VoltageDelay[2]}}" e-max="{{panelLimitsAttributes.Alarm.VoltageDelay[1]}}" e-min="{{panelLimitsAttributes.Alarm.VoltageDelay[0]}}" e-inputgroupright="Min:{{panelLimitsAttributes.Alarm.VoltageDelay[0]}} Max:{{panelLimitsAttributes.Alarm.VoltageDelay[1]}}" onaftersave="editModeFeatureValue($data,'Alarm', 'VoltageDelay', 'Panel Limits');">{{panelConfigLimitsAlarm.VoltageDelay}}</span>														
+							</td>						
+							<td class="pdu-metering-output-table-content bcm-meters-configuration-content td-center-align" rowspan="2">
+								<span editable-number="panelConfigLimitsWarning.VoltageDelay" e-step="{{panelLimitsAttributes.Warning.VoltageDelay[2]}" e-max="{{panelLimitsAttributes.Warning.VoltageDelay[1]}" e-min="{{panelLimitsAttributes.Warning.VoltageDelay[0]}}" e-inputgroupright="Min:{{panelLimitsAttributes.Warning.VoltageDelay[0]}} Max:{{panelLimitsAttributes.Warning.VoltageDelay[1]}}" onaftersave="editModeFeatureValue($data,'Warning', 'VoltageDelay', 'Panel Limits');">{{panelConfigLimitsWarning.VoltageDelay}}</span>							
+							</td>
+						</tr>
+						
+						<tr  class="pdu-metering-output-table-row">
+							<td class="col-xs-2 pdu-metering-output-table-content pdu-settings-limits-content td-center-align">
+								Under Voltage (%)
+							</td>
+							<td class="pdu-metering-output-table-content bcm-meters-configuration-content td-center-align">								
+								<span editable-number="panelConfigLimitsAlarm.UnderVoltage" e-step="{{panelLimitsAttributes.Alarm.UnderVoltage[2]}}" e-max="{{panelLimitsAttributes.Alarm.UnderVoltage[1]}}" e-min="{{panelLimitsAttributes.Alarm.UnderVoltage[0]}}" e-inputgroupright="Min:{{panelLimitsAttributes.Alarm.UnderVoltage[0]}} Max:{{panelLimitsAttributes.Alarm.UnderVoltage[1]}}" onaftersave="editModeFeatureValue($data,'Alarm', 'UnderVoltage', 'Panel Limits');">{{panelConfigLimitsAlarm.UnderVoltage}}</span>							
+							</td>						
+							<td class="pdu-metering-output-table-content bcm-meters-configuration-content td-center-align">
+								<span editable-number="panelConfigLimitsWarning.UnderVoltage" e-step="{{panelLimitsAttributes.Warning.UnderVoltage[2]}" e-max="{{panelLimitsAttributes.Warning.UnderVoltage[1]}" e-min="{{panelLimitsAttributes.Warning.UnderVoltage[0]}" e-inputgroupright="Min:{{panelLimitsAttributes.Warning.UnderVoltage[0]}} Max:{{panelLimitsAttributes.Warning.UnderVoltage[1]}}" onaftersave="editModeFeatureValue($data,'Warning', 'UnderVoltage', 'Panel Limits');">{{panelConfigLimitsWarning.UnderVoltage}}</span>							
+							</td>
+						</tr>
+						
+						<tr  class="pdu-metering-output-table-row">
+							<td class="col-xs-2 pdu-metering-output-table-content pdu-settings-limits-content td-center-align">
+								Over KW
+							</td>
+							<td class="pdu-metering-output-table-content bcm-meters-configuration-content td-center-align">								
+								<span editable-number="panelConfigLimitsAlarm.OverKW" e-step="{{panelLimitsAttributes.Alarm.OverKW[2]}}" e-max="{{panelLimitsAttributes.Alarm.OverKW[1]}}" e-min="{{panelLimitsAttributes.Alarm.OverKW[0]}}" e-inputgroupright="Min:{{panelLimitsAttributes.Alarm.OverKW[0]}} Max:{{panelLimitsAttributes.Alarm.OverKW[1]}}" onaftersave="editModeFeatureValue($data,'Alarm', 'UnderVoltage', 'Panel Limits');">{{panelConfigLimitsAlarm.OverKW}}</span>														
+							</td>						
+							<td class="pdu-metering-output-table-content bcm-meters-configuration-content td-center-align">
+								{{}}
+							</td>
+							<td class="pdu-metering-output-table-content bcm-meters-configuration-content td-center-align">
+								{{}}							
+							</td>						
+							<td class="pdu-metering-output-table-content bcm-meters-configuration-content td-center-align">
+								{{}}
+							</td>
+						</tr>
+						
+						<tr  class="pdu-metering-output-table-row">
+							<td class="col-xs-2 pdu-metering-output-table-content pdu-settings-limits-content td-center-align">
+								Low PF
+							</td>
+							<td class="pdu-metering-output-table-content bcm-meters-configuration-content td-center-align">								
+								<span editable-number="panelConfigLimitsAlarm.LowPF" e-step="{{panelLimitsAttributes.Alarm.LowPF[2]}}" e-max="{{panelLimitsAttributes.Alarm.LowPF[1]}}" e-min="{{panelLimitsAttributes.Alarm.LowPF[0]}}" e-inputgroupright="Min:{{panelLimitsAttributes.Alarm.LowPF[0]}} Max:{{panelLimitsAttributes.Alarm.LowPF[1]}}" onaftersave="editModeFeatureValue($data,'Alarm', 'UnderVoltage', 'Panel Limits');">{{panelConfigLimitsAlarm.LowPF}}</span>														
+							</td>						
+							<td class="pdu-metering-output-table-content bcm-meters-configuration-content td-center-align">
+								{{}}
+							</td>
+							<td class="pdu-metering-output-table-content bcm-meters-configuration-content td-center-align">
+								{{}}							
+							</td>						
+							<td class="pdu-metering-output-table-content bcm-meters-configuration-content td-center-align">
+								{{}}
+							</td>
+						</tr>
+									
+					</tbody>				
+				</table>
+			</div>
+		</div>	
+		
+		<!-- Global View -->
+		<div class="card-layout-bcm-home-settings card-layout-bcm-home-settings-global clearfix box-shadow"> 
+			<div class="col-xs-10 bcm-settings-table-panel">				
+				<table class="table" style="margin-bottom: 0;border: #d8d8d8 1px solid;">
+					<caption>Global</caption>
+					<tbody>	
+						<tr  class="pdu-metering-output-table-row">
+							<td class="col-xs-6 pdu-metering-output-table-content pdu-settings-limits-content td-center-align">
+								<label>Panel Number</label>	
+							</td>
+							<td class="col-xs-6 pdu-metering-output-table-content bcm-meters-configuration-content td-center-align">
+								<span editable-number="panelNumber" e-step="1" e-max="4" e-min="1" e-inputgroupright="Min:{{1}} Max:{{4}}">
+									<input type="text" id="panelNumber" placeholder="Enter any Value" ng-click="testCode($event);" value="{{panelNumber}}">
+								</span>			
+							</td>	
+						</tr>
+						<tr  class="pdu-metering-output-table-row">
+							<td class="col-xs-6 pdu-metering-output-table-content pdu-settings-limits-content td-center-align">
+								<label>Over Current Warning Limit</label>
+							</td>
+							<td class="col-xs-6 pdu-metering-output-table-content bcm-meters-configuration-content td-center-align">
+								<span editable-number="ocwLimit" e-step="{{gloablConfigAttributes.Warning.OverCurrent[2]}}" e-max="{{gloablConfigAttributes.Warning.OverCurrent[1]}}" e-min="{{gloablConfigAttributes.Warning.OverCurrent[0]}}" e-inputgroupright="Min:{{gloablConfigAttributes.Warning.OverCurrent[0]}} Max:{{gloablConfigAttributes.Warning.OverCurrent[1]}}" onaftersave="updateData($data, 'warningOverCurrent')" >
+									<input type="text" id="ocwLimit" placeholder="Enter any Value" value="{{ocwLimit}}">
+								</span>		
+							</td>	
+						</tr>
+						<tr  class="pdu-metering-output-table-row">
+							<td class="col-xs-6 pdu-metering-output-table-content pdu-settings-limits-content td-center-align">
+								<label>Over Current Alarm Limit</label>
+							</td>
+							<td class="col-xs-6 pdu-metering-output-table-content bcm-meters-configuration-content td-center-align">							
+								<span editable-number="ocaLimit" e-step="{{gloablConfigAttributes.Alarm.OverCurrent[2]}}" e-max="{{gloablConfigAttributes.Alarm.OverCurrent[1]}}" e-min="{{gloablConfigAttributes.Alarm.OverCurrent[0]}}" e-inputgroupright="Min:{{gloablConfigAttributes.Alarm.OverCurrent[0]}} Max:{{gloablConfigAttributes.Alarm.OverCurrent[1]}}" onaftersave="updateData($data, 'alarmOverCurrent')">
+									<input type="text" id="ocaLimit" placeholder="Enter any Value" value="{{ocaLimit}}">
+								</span>		
+							</td>	
+						</tr>
+						<tr  class="pdu-metering-output-table-row">
+							<td class="col-xs-6 pdu-metering-output-table-content pdu-settings-limits-content td-center-align">
+								<label>Under Current Alarm Limit</label>
+							</td>
+							<td class="col-xs-6 pdu-metering-output-table-content bcm-meters-configuration-content td-center-align">							
+								<span editable-number="ucaLimit" e-step="{{gloablConfigAttributes.Alarm.UnderCurrent[2]}}" e-max="{{gloablConfigAttributes.Alarm.UnderCurrent[1]}}" e-min="{{gloablConfigAttributes.Alarm.UnderCurrent[0]}}" e-inputgroupright="Min:{{gloablConfigAttributes.Alarm.UnderCurrent[0]}} Max:{{gloablConfigAttributes.Alarm.UnderCurrent[1]}}" onaftersave="updateData($data, 'alarmUnderCurrent')">
+									<input type="text" id="ucaLimit" placeholder="Enter any Value" value="{{ucaLimit}}">
+								</span>		
+							</td>	
+						</tr>
+						<tr  class="pdu-metering-output-table-row">
+							<td class="col-xs-6 pdu-metering-output-table-content pdu-settings-limits-content td-center-align">
+								<label>Current Warning Delay</label>
+							</td>
+							<td class="col-xs-6 pdu-metering-output-table-content bcm-meters-configuration-content td-center-align">
+								<span editable-number="cwDelay" e-step="{{gloablConfigAttributes.Warning.Delay[2]}}" e-max="{{gloablConfigAttributes.Warning.Delay[1]}}" e-min="{{gloablConfigAttributes.Warning.Delay[0]}}" e-inputgroupright="Min:{{gloablConfigAttributes.Warning.Delay[0]}} Max:{{gloablConfigAttributes.Warning.Delay[1]}}" onaftersave="updateData($data, 'warningDelay')">
+									<input type="text" id="cwDelay" placeholder="Enter any Value" value="{{cwDelay}}">
+								</span>			
+							</td>	
+						</tr>
+						<tr  class="pdu-metering-output-table-row">
+							<td class="col-xs-6 pdu-metering-output-table-content pdu-settings-limits-content td-center-align">
+								<label>Current Alarm Delay</label>
+							</td>
+							<td class="col-xs-6 pdu-metering-output-table-content bcm-meters-configuration-content td-center-align">
+								<span editable-number="caDelay" e-step="{{gloablConfigAttributes.Alarm.Delay[2]}}" e-max="{{gloablConfigAttributes.Alarm.Delay[1]}}" e-min="{{gloablConfigAttributes.Alarm.Delay[0]}}" e-inputgroupright="Min:{{gloablConfigAttributes.Alarm.Delay[0]}} Max:{{gloablConfigAttributes.Alarm.Delay[1]}}" onaftersave="updateData($data, 'alarmDelay')">
+									<input type="text" id="caDelay" placeholder="Enter any Value" value="{{caDelay}}">
+								</span>		
+							</td>	
+						</tr>
+						<tr  class="pdu-metering-output-table-row">
+							<td class="col-xs-6 pdu-metering-output-table-content pdu-settings-limits-content td-center-align">
+								<input type="button" class="button-grp-1" value="Apply" ng-click="submitData($event);">
+							</td>
+							<td class="col-xs-6 pdu-metering-output-table-content bcm-meters-configuration-content td-center-align">
+								<input type="reset" class="button-grp-1" value="Cancel" ng-click="resetGlobalFields();">		
+							</td>	
+						</tr>
+					</tbody>				
+				</table>			
+			</div>	
+		</div>
+		
+		<!-- Panel Configuration View -->
+		<div class="card-layout-bcm-home-settings card-layout-bcm-home-settings-panel-config clearfix box-shadow"> 
+			<div class="col-xs-10 bcm-settings-table-panel">	
+				<table class="table" style="margin-bottom: 0;border: #d8d8d8 1px solid;">
+					<caption>Panel Config</caption>
+					<tbody>		
+						<tr>
+							<td class="col-xs-1 pdu-metering-thermal-panel-header bcm-meters-configuration-content td-center-align">
+								Panel
+							</td>	
+							<td class="col-xs-2 pdu-metering-thermal-panel-header bcm-meters-configuration-content td-center-align">
+								State							
+							</td>
+							<td class="col-xs-2 pdu-metering-thermal-panel-header bcm-meters-configuration-content td-center-align">
+								Voltage Source
+							</td>
+							<td class="col-xs-2 pdu-metering-thermal-panel-header bcm-meters-configuration-content td-center-align">
+								Voltage Rating (V)
+							</td>
+							<td class="col-xs-2 pdu-metering-thermal-panel-header bcm-meters-configuration-content td-center-align">
+								Frequency Rating (Hz)
+							</td>
+							<td class="pdu-metering-thermal-panel-header bcm-meters-configuration-content td-center-align">
+								Ampere Rating (A)
+							</td>
+						</tr>
+						<tr  class="pdu-metering-output-table-row" ng-repeat="panelConfig in panelConfigs">
+							<td class="pdu-metering-output-table-content pdu-settings-limits-content td-center-align">
+								{{panelConfig.panelNumber}}
+							</td>
+							<td class="pdu-metering-output-table-content pdu-settings-limits-content td-center-align">
+								<input type="checkbox" ng-model="panelConfig.OnOff" ng-change="editModeFeatureState(panelConfig.panelNumber, 'Panel Configuration');" bootstrap-switch />	
+							</td>
+							<td class="pdu-metering-output-table-content pdu-settings-limits-content td-center-align">							
+								<span editable-number="panelConfig.VoltSource" e-step="{{panelConfigAttributes.VoltSource[2]}}" e-max="{{panelConfigAttributes.VoltSource[1]}}" e-min="{{panelConfigAttributes.VoltSource[0]}}" e-inputgroupright="Min:{{panelConfigAttributes.VoltSource[0]}} Max:{{panelConfigAttributes.VoltSource[1]}}" onaftersave="editModeFeatureValue($data, 'VoltSource', panelConfig.panelNumber, 'Panel Configuration');">{{panelConfig.VoltSource}}</span>
+							</td>
+							<td class="pdu-metering-output-table-content pdu-settings-limits-content td-center-align">							
+								<span editable-number="panelConfig.VoltRating" e-step="{{panelConfigAttributes.VoltRating[2]}}" e-max="{{panelConfigAttributes.VoltRating[1]}}" e-min="{{panelConfigAttributes.VoltRating[0]}}" e-inputgroupright="Min:{{panelConfigAttributes.VoltRating[0]}} Max:{{panelConfigAttributes.VoltRating[1]}}" onaftersave="editModeFeatureValue($data, 'VoltRating', panelConfig.panelNumber, 'Panel Configuration');">{{panelConfig.VoltRating}}</span>
+							</td>
+							<td class="pdu-metering-output-table-content pdu-settings-limits-content td-center-align">
+								<span editable-number="panelConfig.FreqRating" e-step="{{panelConfigAttributes.FreqRating[2]}}" e-max="{{panelConfigAttributes.FreqRating[1]}}" e-min="{{panelConfigAttributes.FreqRating[0]}}" e-inputgroupright="Min:{{panelConfigAttributes.FreqRating[0]}} Max:{{panelConfigAttributes.FreqRating[1]}}" onaftersave="editModeFeatureValue($data, 'FrqRating', panelConfig.panelNumber, 'Panel Configuration');">{{panelConfig.FreqRating}}</span>
+							</td>
+							<td class="pdu-metering-output-table-content pdu-settings-limits-content td-center-align">
+								<span editable-number="panelConfig.AmpRating" e-step="{{panelConfigAttributes.AmpRating[2]}}" e-max="{{panelConfigAttributes.AmpRating[1]}}" e-min="{{panelConfigAttributes.AmpRating[0]}}" e-inputgroupright="Min:{{panelConfigAttributes.AmpRating[0]}} Max:{{panelConfigAttributes.AmpRating[1]}}" onaftersave="editModeFeatureValue($data, 'AmpRating', panelConfig.panelNumber, 'Panel Configuration');">{{panelConfig.AmpRating}}</span>
+							</td>
+						</tr>
+					</tbody>				
+				</table>
+			</div>	
+		</div>
+	</div>
+</div>

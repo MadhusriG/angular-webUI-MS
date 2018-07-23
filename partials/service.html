@@ -1,0 +1,185 @@
+<div ng-controller="ServiceController">
+
+	<div class="header-layout clearfix"  style="border: #d8d8d8 1px solid; background: white; box-shadow: 0px 2px 5px #d8d8d8;">  
+		Service
+	</div>
+		
+	<div class="clearfix panel-service">
+		
+		<div class="card-layout-service clearfix box-shadow" style="margin-bottom: 0; border-top: 1px solid rgba(221, 221, 221, .5);">
+			<table class="table service-table" style="margin-bottom: 0;border-top: 1px solid rgba(221, 221, 221, .5);">
+				<caption>Reports</caption>
+				<tbody>							
+					<tr  class="pdu-metering-output-table-row">
+						<td class="pdu-metering-report-table-content" style="border-right: #d8d8d8 1px solid;">
+							Reports Method
+						</td>						
+						<td class="pdu-metering-report-table-content">
+							<input type="radio" name="opReportType" id="usbReportId">
+							<label for="usbReportId" style="font-weight: normal">&nbsp;&nbsp;USB</label>							
+						</td>
+						<td class="pdu-metering-report-table-content">		
+							<input type="radio" name="opReportType" id="tftpReportId">
+							<label for="tftpReportId" style="font-weight: normal">&nbsp;&nbsp;TFTP</label>
+						</td>
+						<td class="pdu-metering-report-table-content">
+							<input type="radio" name="opReportType" id="emailId">
+							<label for="emailId" style="font-weight: normal">&nbsp;&nbsp;Email</label>
+						</td>
+						<td class="pdu-metering-report-table-content">
+						</td>
+						<td class="pdu-metering-report-table-content" style="border-right: #d8d8d8 1px solid;">
+						</td>
+						<td class="pdu-metering-report-table-content" rowspan="2">
+							<button type="submit" class="btn btn-primary center-block" ng-click="generateReportInvoke()">Generate Report</button>
+						</td>
+					</tr>	
+					<tr  class="pdu-metering-output-table-row">
+						<td class="pdu-metering-report-table-content" style="border-right: #d8d8d8 1px solid;">
+							Reports
+						</td>
+						<td class="pdu-metering-report-table-content">
+							<input type="checkbox" name="reports" id="logId">
+							<label style="font-weight: normal">&nbsp;&nbsp;Log Dump</label>							
+						</td>
+						<td class="pdu-metering-report-table-content">		
+							<input type="checkbox" name="reports" id="paramId">
+							<label style="font-weight: normal">&nbsp;&nbsp;Param Dump</label>
+						</td>
+						<td class="pdu-metering-report-table-content">
+							<input type="checkbox" name="reports" id="tlmId">
+							<label style="font-weight: normal">&nbsp;&nbsp;TLM Dump</label>
+						</td>
+						<td class="pdu-metering-report-table-content">
+							<input type="checkbox" name="reports" id="waveformsId">
+							<label style="font-weight: normal">&nbsp;&nbsp;Waveforms</label>
+						</td>
+						<td class="pdu-metering-report-table-content" style="border-right: #d8d8d8 1px solid;">
+							<input type="checkbox" name="reports" id="selectallId" ng-click="selectAllChange($event);">
+							<label style="font-weight: normal">&nbsp;&nbsp;Select All</label>
+						</td>
+					</tr>	
+				</tbody>				
+			</table>
+		</div>
+		
+		<div class="card-layout-service clearfix box-shadow" style="margin-bottom: 0; border-top: 1px solid rgba(221, 221, 221, .5);">
+			<table class="table box-shadow service-table" style="margin-bottom: 0;border-top: 1px solid rgba(221, 221, 221, .5);">
+				<caption>Upgrade</caption>
+				<tbody>							
+					<tr  class="pdu-metering-output-table-row">
+						<td class="pdu-metering-report-table-content" style="border-right: #d8d8d8 1px solid;">
+							Upgrade Method
+						</td>						
+						<td class="pdu-metering-report-table-content">
+							<input type="radio" name="opUpgradeType" id="usbUpgradeId">
+							<label for="usbUpgradeId" style="font-weight: normal">&nbsp;&nbsp;USB</label>							
+						</td>
+						<td class="pdu-metering-report-table-content">		
+							<input type="radio" name="opUpgradeType" id="tftpUpgradeId">
+							<label for="tftpUpgradeId" style="font-weight: normal">&nbsp;&nbsp;TFTP</label>
+						</td>
+						<td class="pdu-metering-report-table-content" style="border-right: #d8d8d8 1px solid;">
+							<input type="radio" name="opUpgradeType" id="webid" disabled="true">
+							<label for="webid" style="font-weight: normal">&nbsp;&nbsp;Web Upload</label>
+						</td>
+						<td class="pdu-metering-report-table-content" rowspan="3">
+							<button type="submit" class="btn btn-primary center-block" ng-click="generateUpgradeInvoke()">Upgrade</button>
+						</td>
+					</tr>	
+					<tr  class="pdu-metering-output-table-row">
+						<td class="pdu-metering-report-table-content" style="border-right: #d8d8d8 1px solid;">
+							Upgrade File
+						</td>
+						<td class="pdu-metering-report-table-content" colspan="3" style="border-right: #d8d8d8 1px solid;">
+							<!-- <input type="text" size="20"> -->
+							{{protocols.TFTPFileName}}
+						</td>
+					</tr>	
+					<tr  class="pdu-metering-output-table-row">
+						<td class="pdu-metering-report-table-content" style="border-right: #d8d8d8 1px solid;">
+							Last Update Status
+						</td>
+						<td class="pdu-metering-report-table-content" colspan="3" style="border-right: #d8d8d8 1px solid;">
+							Success						
+						</td>
+					</tr>
+				</tbody>				
+			</table>
+		</div>
+	
+	
+	
+		<div class="card-layout-service clearfix box-shadow" style="margin-bottom: 0; border-top: 1px solid rgba(221, 221, 221, .5); ">
+			<table class="table box-shadow service-table" style="margin-bottom: 0; border-top: 1px solid rgba(221, 221, 221, .5);">
+				<caption>Reset</caption>
+				<tbody>							
+					<tr  class="pdu-metering-output-table-row">
+						<td class="pdu-metering-report-table-content" style="border-right: #d8d8d8 1px solid;">								
+							Device Id&nbsp;&nbsp;
+							<select ng-model="selectedDevice" ng-options="deviceStatus.Id for deviceStatus in deviceStatuses" style="width:50px" ng-click="deviceIdChanged($event, $index);">								
+							</select>														
+						</td>	
+						<td class="pdu-metering-report-table-content" rowspan="5">
+							<button type="submit" class="btn btn-primary center-block" ng-click="generateResetInvoke()">Reset</button>
+						</td>
+					</tr>
+					<tr  class="pdu-metering-output-table-row">
+						<td class="pdu-metering-report-table-content">
+							<input type="checkbox" name="reset" id="mdId">
+							<label style="font-weight: normal">&nbsp;&nbsp;MD</label>
+						</td>
+					</tr>	
+					<tr  class="pdu-metering-output-table-row">
+						<td class="pdu-metering-report-table-content">
+							<input type="checkbox" name="reset" id="energyId">
+							<label style="font-weight: normal">&nbsp;&nbsp;Energy</label>
+						</td>
+					</tr>	
+					<tr  class="pdu-metering-output-table-row">
+						<td class="pdu-metering-report-table-content">
+							<input type="checkbox" name="reset" id="peakId">
+							<label style="font-weight: normal">&nbsp;&nbsp;Peak/Min/Max</label>
+						</td>
+					</tr>	
+					<tr  class="pdu-metering-output-table-row">
+						<td class="pdu-metering-report-table-content">
+							<input type="checkbox" name="reset" id="alarmId">
+							<label style="font-weight: normal">&nbsp;&nbsp;Alarm/Faults</label>
+						</td>
+					</tr>
+				</tbody>				
+			</table>
+		</div>
+	</div>
+	
+	
+		
+	
+	
+	<div class="card-layout" ng-if="viewModes.Calibration">	
+	</div>
+	
+	<div class="overlay-block-white" ng-if="isBackgroundTask">
+		<div class="clearfix dump-status-container" ng-if="dumpStatusView">		
+			<!--</p>Dump Percent: {{dumppercent}}-->
+			<label class="dump-status-label">Saving File: {{dumpstatus}}</label>
+			<div class="progress" style="height:20px;width:350px;margin-top: 10px;">
+				<div class="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:{{dumppercent}}%; background:#2E92FA;">
+					{{dumppercent}}%
+				</div>
+			 </div>		 			
+		</div>
+	</div>
+	
+	
+	
+	<div class="clearfix dump-status-container" ng-if="timeoutView">				
+		<label class="timeout-label">Oops! Something went wrong</label>			 			
+	</div>
+	
+	<div class="clearfix dump-status-container" ng-if="successView">				
+		<label class="success-label">{{successMessage}}</label>			 			
+	</div>
+	
+</div>

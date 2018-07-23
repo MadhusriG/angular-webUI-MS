@@ -1,0 +1,776 @@
+<div ng-controller="PduMeteringMetersController">
+
+	<div class="header-layout clearfix"  style="border: #d8d8d8 1px solid; background: white; box-shadow: 0px 2px 5px #d8d8d8;">  
+		Meters
+		<div ng-if="editMode" class="clearfix save-discard-container">
+			<button class="pull-right boxbackground button-grp-1" ng-click="saveChanges()"><span class="glyphicon glyphicon-ok"></span> &nbsp; Save</button>
+			<button class="pull-right boxbackground button-grp" ng-click="discardChanges()"><span class="glyphicon glyphicon-remove"></span> &nbsp; Discard Changes</button>
+		</div>
+	</div>
+
+	<!-- Graphical/Tabular view switching Access only for Output Menu for time being -->
+	<div class="table-graph-icon-layout clearfix" ng-if="!inputMode">
+		<table class="table table-graph-icon-content">
+			<tbody>
+				<tr>
+					<td ng-click="toggleViewTableGraph($event, $index)" class="active-text-link" id="graphModeId">
+						<i class="fa fa-bar-chart graph-table-glyphicon" aria-hidden="true"></i>						
+					</td>
+					<td ng-click="toggleViewTableGraph($event, $index)" id="tableModeId">
+						<i class="fa fa-table graph-table-glyphicon" aria-hidden="true"></i>
+					</td>					
+					<td ng-click="toggleViewTableGraph($event, $index)" id="settingsModeId">
+						<i class="fa fa-cog graph-table-glyphicon" aria-hidden="true"></i>
+					</td>
+				</tr>
+			</tbody>				
+		</table>			
+	</div>
+	
+	<!--Graphical View for Output-->
+	<div class="card-layout" ng-if="toggleViewMode.graph && !inputMode">
+		<div class="col-xs-6 pdu-metering-output-panel">	
+			<table class="table">
+				<tbody>
+					<tr class="pdu-metering-meter-status-panel-header">
+						<td class="pdu-metering-meter-status-panel-header-left">
+							<div>
+								Voltage
+							</div>
+						</td>
+						<td class="pdu-metering-meter-status-panel-header-right">
+							<div>
+								RMS
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td class="pdu-metering-output-panel-content" colspan="2">
+							<canvas class="chart chart-bar chart-container" chart-options="options" chart-data="data" chart-labels="labels" chart-colors="colors" chart-series="series"></canvas> 
+						</td>
+					</tr>
+				</tbody>				
+			</table>
+		</div>
+		<div class="col-xs-6 pdu-metering-output-panel">	
+			<table class="table">
+				<tbody>
+					<tr class="pdu-metering-meter-status-panel-header">
+						<td class="pdu-metering-meter-status-panel-header-left">
+							<div>
+								Load
+							</div>
+						</td>
+						<td class="pdu-metering-meter-status-panel-header-right">
+							<div>
+								RMS
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td class="pdu-metering-output-panel-content" colspan="2">
+							<canvas class="chart chart-bar chart-container" chart-options="options" chart-data="dataPower" chart-labels="labelsPower" chart-colors="colors" chart-series="series"></canvas> 
+						</td>
+					</tr>
+				</tbody>				
+			</table>
+		</div>
+		<div class="col-xs-6 pdu-metering-output-panel">	
+			<table class="table">
+				<tbody>
+					<tr class="pdu-metering-meter-status-panel-header">
+						<td class="pdu-metering-meter-status-panel-header-left">
+							<div>
+								Voltage
+							</div>
+						</td>
+						<td class="pdu-metering-meter-status-panel-header-right">
+							<div>
+								Harmonics
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td class="pdu-metering-output-panel-content" colspan="2">
+							<canvas class="chart chart-bar chart-container" chart-options="options" chart-data="dataVoltageHarmonics"  chart-labels="labelsVoltageHarmonics" chart-colors="colorsVoltageHarmonics" chart-series="seriesVoltageHarmonics"></canvas> 
+						</td>
+					</tr>
+				</tbody>				
+			</table>
+		</div>
+		<div class="col-xs-6 pdu-metering-output-panel">	
+			<table class="table">
+				<tbody>
+					<tr class="pdu-metering-meter-status-panel-header">
+						<td class="pdu-metering-meter-status-panel-header-left">
+							<div>
+								Current
+							</div>
+						</td>
+						<td class="pdu-metering-meter-status-panel-header-right">
+							<div>
+								Harmonics
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td class="pdu-metering-output-panel-content" colspan="2">
+							<canvas class="chart chart-bar chart-container" chart-options="options" chart-data="dataCurrentHarmonics" chart-labels="labelsCurrentHarmonics" chart-colors="colorsCurrentHarmonics" chart-series="seriesCurrentHarmonics"></canvas> 
+						</td>
+					</tr>
+				</tbody>				
+			</table>
+		</div>
+		
+	</div>
+	
+	<!--Table View for Output-->
+	<div class="card-layout" ng-if="toggleViewMode.table && !inputMode">
+		<div class="col-xs-6 pdu-metering-output-table-panel">	
+			<table class="table meters-table" style="margin-bottom: 10px; border: 1px solid rgba(221, 221, 221, .5); background: white; box-shadow: 0px 2px 5px #d8d8d8;">
+				<thead>
+				  <tr>
+					<th>PARAMETER</th>
+					<th>L1</th>
+					<th>L2</th>
+					<th>L3</th>
+					<th>TOTAL</th>
+					<th></th>
+				  </tr>
+				</thead>
+				<tbody>					
+					<tr  class="pdu-metering-output-table-row">
+						<td class="col-xs-3 pdu-metering-output-table-content" style="font-weight: normal">
+							V<sub>Out</sub>
+						</td>
+						<td class="col-xs-2 pdu-metering-output-table-content">
+							<table class="table table-unit" style="margin-bottom: 0;border: #d8d8d8 0px solid; background: white;">
+								<td class="unit-value">
+									{{voltage.AN}} 
+								</td>
+								<td>
+									<span style="font-weight: normal">V</span>
+								</td>
+							</table>
+						</td>
+						<td class="col-xs-2 pdu-metering-output-table-content">
+							<table class="table table-unit" style="margin-bottom: 0;border: #d8d8d8 0px solid; background: white;">
+								<td class="unit-value">
+									{{voltage.BN}} 
+								</td>
+								<td>
+									<span style="font-weight: normal">V</span>
+								</td>
+							</table>
+						</td>
+						<td class="col-xs-2 pdu-metering-output-table-content">
+							<table class="table table-unit" style="margin-bottom: 0;border: #d8d8d8 0px solid; background: white;">
+								<td class="unit-value">
+									{{voltage.CN}} 
+								</td>
+								<td>
+									<span style="font-weight: normal">V</span>
+								</td>
+							</table>
+						</td>
+						<td class="col-xs-2 pdu-metering-output-table-content">
+						</td>
+						<td class="col-xs-1 pdu-metering-output-table-content">
+						</td>
+					</tr>
+					<tr  class="pdu-metering-output-table-row">
+						<td class="col-xs-3 pdu-metering-output-table-content" style="font-weight: normal">
+							V<sub>In</sub>
+						</td>
+						<td class="col-xs-2 pdu-metering-output-table-content">
+							<table class="table table-unit" style="margin-bottom: 0;border: #d8d8d8 0px solid; background: white;">
+								<td class="unit-value">
+									{{voltageInput.AB}}
+								</td>
+								<td>
+									<span style="font-weight: normal">V</span>
+								</td>
+							</table>
+						</td>
+						<td class="col-xs-2 pdu-metering-output-table-content">
+							<table class="table table-unit" style="margin-bottom: 0;border: #d8d8d8 0px solid; background: white;">
+								<td class="unit-value">
+									{{voltageInput.BC}}
+								</td>
+								<td>
+									<span style="font-weight: normal">V</span>
+								</td>
+							</table>
+						</td>
+						<td class="col-xs-2 pdu-metering-output-table-content">
+							<table class="table table-unit" style="margin-bottom: 0;border: #d8d8d8 0px solid; background: white;">
+								<td class="unit-value">
+									{{voltageInput.CA}}
+								</td>
+								<td>
+									<span style="font-weight: normal">V</span>
+								</td>
+							</table>
+						</td>
+						<td class="col-xs-2 pdu-metering-output-table-content">
+						</td>
+						<td class="col-xs-1 pdu-metering-output-table-content">
+						</td>
+					</tr>
+					<tr class="pdu-metering-output-table-row">
+						<td class="col-xs-3 pdu-metering-output-table-content" style="font-weight: normal">
+							I
+						</td>
+						<td class="col-xs-2 pdu-metering-output-table-content">
+							<table class="table table-unit" style="margin-bottom: 0;border: #d8d8d8 0px solid; background: white;">
+								<td class="unit-value">
+									{{currentRms.L1}}
+								</td>
+								<td>
+									<span style="font-weight: normal">A</span>
+								</td>
+							</table>
+						</td>
+						<td class="col-xs-2 pdu-metering-output-table-content">
+							<table class="table table-unit" style="margin-bottom: 0;border: #d8d8d8 0px solid; background: white;">
+								<td class="unit-value">
+									{{currentRms.L2}}
+								</td>
+								<td>
+									<span style="font-weight: normal">A</span>
+								</td>
+							</table>
+						</td>
+						<td class="col-xs-2 pdu-metering-output-table-content">
+							<table class="table table-unit" style="margin-bottom: 0;border: #d8d8d8 0px solid; background: white;">
+								<td class="unit-value">
+									{{currentRms.L3}}
+								</td>
+								<td>
+									<span style="font-weight: normal">A</span>
+								</td>
+							</table>
+						</td>
+						<td class="col-xs-2 pdu-metering-output-table-content">
+						</td>
+						<td class="col-xs-1 pdu-metering-output-table-content">
+						</td>
+					</tr>
+					<tr class="pdu-metering-output-table-row">
+						<td class="col-xs-3 pdu-metering-output-table-content" style="font-weight: normal">
+							P<sub>kW</sub>
+						</td>
+						<td class="col-xs-2 pdu-metering-output-table-content">
+							<table class="table table-unit" style="margin-bottom: 0;border: #d8d8d8 0px solid; background: white;">
+								<td class="unit-value">
+									{{power.kW.L1}}
+								</td>
+								<td>
+									<span style="font-weight: normal">kW</span>
+								</td>
+							</table>
+						</td>
+						<td class="col-xs-2 pdu-metering-output-table-content">
+							<table class="table table-unit" style="margin-bottom: 0;border: #d8d8d8 0px solid; background: white;">
+								<td class="unit-value">
+									{{power.kW.L2}}
+								</td>
+								<td>
+									<span style="font-weight: normal">kW</span>
+								</td>
+							</table>
+						</td>
+						<td class="col-xs-2 pdu-metering-output-table-content">
+							<table class="table table-unit" style="margin-bottom: 0;border: #d8d8d8 0px solid; background: white;">
+								<td class="unit-value">
+									{{power.kW.L3}}
+								</td>
+								<td>
+									<span style="font-weight: normal">kW</span>
+								</td>
+							</table>
+						</td>
+						<td class="col-xs-2 pdu-metering-output-table-content">
+							<table class="table table-unit" style="margin-bottom: 0;border: #d8d8d8 0px solid; background: white;">
+								<td class="unit-value">
+									{{power.kW.Total}}
+								</td>
+								<td>
+									<span style="font-weight: normal">kW</span>
+								</td>
+							</table>
+						</td>						
+						<td class="col-xs-1 pdu-metering-output-table-content">
+						</td>
+					</tr>
+					<tr class="pdu-metering-output-table-row">
+						<td class="col-xs-3 pdu-metering-output-table-content" style="font-weight: normal">
+							P<sub>kVA</sub>
+						</td>
+						<td class="col-xs-2 pdu-metering-output-table-content">
+							<table class="table table-unit" style="margin-bottom: 0;border: #d8d8d8 0px solid; background: white;">
+								<td class="unit-value">
+									{{power.kVA.L1}}
+								</td>
+								<td>
+									<span style="font-weight: normal">kVA</span>
+								</td>
+							</table>
+						</td>
+						<td class="col-xs-2 pdu-metering-output-table-content">
+							<table class="table table-unit" style="margin-bottom: 0;border: #d8d8d8 0px solid; background: white;">
+								<td class="unit-value">
+									{{power.kVA.L2}}
+								</td>
+								<td>
+									<span style="font-weight: normal">kVA</span>
+								</td>
+							</table>
+						</td>
+						<td class="col-xs-2 pdu-metering-output-table-content">
+							<table class="table table-unit" style="margin-bottom: 0;border: #d8d8d8 0px solid; background: white;">
+								<td class="unit-value">
+									{{power.kVA.L3}}
+								</td>
+								<td>
+									<span style="font-weight: normal">kVA</span>
+								</td>
+							</table>
+						</td>
+						<td class="col-xs-2 pdu-metering-output-table-content">
+							<table class="table table-unit" style="margin-bottom: 0;border: #d8d8d8 0px solid; background: white;">
+								<td class="unit-value">
+									{{power.kVA.Total}}
+								</td>
+								<td>
+									<span style="font-weight: normal">kVA</span>
+								</td>
+							</table>							
+						</td>						
+						<td class="col-xs-1 pdu-metering-output-table-content">
+						</td>
+					</tr>
+					<tr class="pdu-metering-output-table-row">
+						<td class="col-xs-3 pdu-metering-output-table-content" style="font-weight: normal">
+							P<sub>PF</sub>
+						</td>
+						<td class="col-xs-2 pdu-metering-output-table-content">
+							{{power.PF.L1}} 
+						</td>
+						<td class="col-xs-2 pdu-metering-output-table-content">
+							{{power.PF.L2}}
+						</td>
+						<td class="col-xs-2 pdu-metering-output-table-content">
+							{{power.PF.L3}}
+						</td>						
+						<td class="col-xs-2 pdu-metering-output-table-content">
+						</td>						
+						<td class="col-xs-1 pdu-metering-output-table-content">
+						</td>
+					</tr>
+					<tr class="pdu-metering-output-table-row">
+						<td class="col-xs-3 pdu-metering-output-table-content" style="font-weight: normal">
+							V<sub>THD</sub>
+						</td>
+						<td class="col-xs-2 pdu-metering-output-table-content">
+							{{harmonicsVThd.L1}}
+						</td>
+						<td class="col-xs-2 pdu-metering-output-table-content">
+							{{harmonicsVThd.L2}}
+						</td>
+						<td class="col-xs-2 pdu-metering-output-table-content">
+							{{harmonicsVThd.L3}}
+						</td>
+						<td class="col-xs-2 pdu-metering-output-table-content">
+						</td>						
+						<td class="col-xs-1 pdu-metering-output-table-content">
+						</td>
+					</tr>
+					<tr class="pdu-metering-output-table-row">
+						<td class="col-xs-3 pdu-metering-output-table-content" style="font-weight: normal">
+							I<sub>THD</sub>
+						</td>
+						<td class="col-xs-2 pdu-metering-output-table-content">
+							{{harmonicsIThd.L1}}
+						</td>
+						<td class="col-xs-2 pdu-metering-output-table-content">
+							{{harmonicsIThd.L2}}
+						</td>
+						<td class="col-xs-2 pdu-metering-output-table-content">
+							{{harmonicsIThd.L3}}
+						</td>		
+						<td class="col-xs-2 pdu-metering-output-table-content">
+						</td>						
+						<td class="col-xs-1 pdu-metering-output-table-content">
+						</td>
+					</tr>
+					<tr class="pdu-metering-output-table-row">
+						<td class="col-xs-3 pdu-metering-output-table-content" style="font-weight: normal">
+							I<sub>N</sub>
+						</td>
+						<td class="col-xs-2 pdu-metering-output-table-content">
+							<table class="table table-unit" style="margin-bottom: 0;border: #d8d8d8 0px solid; background: white;">
+								<td class="unit-value">
+									{{currentNg.N}}
+								</td>
+								<td>
+									<span style="font-weight: normal">A</span>
+								</td>
+							</table>
+						</td>
+						<td class="col-xs-2 pdu-metering-output-table-content">
+						</td>
+						<td class="col-xs-2 pdu-metering-output-table-content">
+						</td>
+						<td class="col-xs-2 pdu-metering-output-table-content">
+						</td>						
+						<td class="col-xs-1 pdu-metering-output-table-content">
+						</td>
+					</tr>
+					<tr class="pdu-metering-output-table-row">
+						<td class="col-xs-3 pdu-metering-output-table-content" style="font-weight: normal">
+							I<sub>G</sub>
+						</td>
+						<td class="col-xs-2 pdu-metering-output-table-content">
+							<table class="table table-unit" style="margin-bottom: 0;border: #d8d8d8 0px solid; background: white;">
+								<td class="unit-value">
+									{{currentNg.G}}
+								</td>
+								<td>
+									<span style="font-weight: normal">A</span>
+								</td>
+							</table>
+						</td>
+						<td class="col-xs-2 pdu-metering-output-table-content">
+						</td>						
+						<td class="col-xs-2 pdu-metering-output-table-content">
+						</td>
+						<td class="col-xs-2 pdu-metering-output-table-content">
+						</td>						
+						<td class="col-xs-1 pdu-metering-output-table-content">
+						</td>
+					</tr>
+				</tbody>				
+			</table>
+		</div>
+		
+		<!-- Thermal Table -->
+		<div class="col-xs-10 pdu-metering-thermal-table-panel">	
+			<table class="table" style="margin-bottom: 10px; border: 1px solid rgba(221, 221, 221, .5); background: white; box-shadow: 0px 2px 5px #d8d8d8;">
+				<tbody>		
+					<tr>
+						<td class="pdu-metering-thermal-panel-header" colspan="10">
+							<div>
+								Temperatures
+							</div>
+						</td>						
+					</tr>
+					<tr  class="pdu-metering-output-table-row">
+						<td class="col-xs-3 pdu-metering-output-table-content" style="font-family: HelveticaNeueETPro-Medium; font-weight: normal;">
+							Internal
+						</td>
+						<td class="pdu-metering-output-table-content" style="font-family: HelveticaNeueETPro-Medium;">
+							23&#8451;
+						</td>
+					</tr>	
+					<tr  class="pdu-metering-output-table-row">
+						<td class="col-xs-3 pdu-metering-output-table-content" style="font-family: HelveticaNeueETPro-Medium; font-weight: normal;">
+							Transformer
+						</td>
+						<td class="pdu-metering-output-table-content" style="font-family: HelveticaNeueETPro-Medium;">
+							Normal
+						</td>
+					</tr>					
+				</tbody>				
+			</table>
+		</div>
+		<div class="col-xs-10 pdu-metering-thermal-table-panel">	
+			<table class="table" style="margin-bottom: 10px; border: 1px solid rgba(221, 221, 221, .5); background: white; box-shadow: 0px 2px 5px #d8d8d8;">
+				<tbody>		
+					<tr>
+						<td class="pdu-metering-thermal-panel-header" colspan="10">
+							<div>
+								Fans
+							</div>
+						</td>						
+					</tr>
+					<tr  class="pdu-metering-output-table-row">
+						<td class="col-xs-3 pdu-metering-output-table-content" style="font-family: HelveticaNeueETPro-Medium; font-weight: normal;">
+							Fan1
+						</td>
+						<td class="pdu-metering-output-table-content" style="font-family: HelveticaNeueETPro-Medium;">
+							Normal
+						</td>
+					</tr>	
+					<tr  class="pdu-metering-output-table-row">
+						<td class="col-xs-3 pdu-metering-output-table-content" style="font-family: HelveticaNeueETPro-Medium; font-weight: normal;">
+							Fan2
+						</td>
+						<td class="pdu-metering-output-table-content" style="font-family: HelveticaNeueETPro-Medium;">
+							Normal
+						</td>
+					</tr>
+					<tr  class="pdu-metering-output-table-row">
+						<td class="col-xs-3 pdu-metering-output-table-content" style="font-family: HelveticaNeueETPro-Medium; font-weight: normal;">
+							Fan3
+						</td>
+						<td class="pdu-metering-output-table-content" style="font-family: HelveticaNeueETPro-Medium;">
+							Stopped
+						</td>
+					</tr>					
+				</tbody>				
+			</table>
+		</div>
+	</div>
+	<div class="card-layout"  ng-if="toggleViewMode.settings && !inputMode">
+	
+		<!--Table View for Settings>Config -->
+		<div class="card-layout-settings clearfix box-shadow row1-col1-settings" style="padding: 0;">				
+			<div class="pdu-metering-settings-table-panel" style="border: 1px solid rgba(221, 221, 221, .5);">										
+				<table class="table" style="margin-bottom: 0;">					 
+					<caption>Configuration</caption>
+					<tbody>		
+						<tr>
+							<td class="pdu-metering-thermal-panel-header" colspan="10">
+								<div>
+									Rating
+								</div>
+							</td>						
+						</tr>
+						<tr  class="pdu-metering-output-table-row">
+							<td class="col-xs-8 pdu-metering-output-table-content" colspan="5">
+								Input Voltage
+							</td>						
+							<td class="col-xs-4 pdu-metering-output-table-content" colspan="5">
+								{{inVoltage}} V
+							</td>
+						</tr>	
+						<tr  class="pdu-metering-output-table-row">
+							<td class="col-xs-8 pdu-metering-output-table-content" colspan="5">
+								Output Voltage
+							</td>						
+							<td class="col-xs-4 pdu-metering-output-table-content" colspan="5">
+								{{outVoltage}} V
+							</td>
+						</tr>	
+						<tr  class="pdu-metering-output-table-row">
+							<td class="col-xs-8 pdu-metering-output-table-content" colspan="5">
+								Current
+							</td>						
+							<td class="col-xs-4 pdu-metering-output-table-content" colspan="5">
+								{{current}} A
+							</td>
+						</tr>
+						<tr  class="pdu-metering-output-table-row">
+							<td class="col-xs-8 pdu-metering-output-table-content" colspan="5">
+								Load
+							</td>						
+							<td class="col-xs-4 pdu-metering-output-table-content" colspan="5">
+								{{kw}} kW
+							</td>
+						</tr>
+						<tr  class="pdu-metering-output-table-row">
+							<td class="col-xs-8 pdu-metering-output-table-content" colspan="5">
+								Frequency
+							</td>						
+							<td class="col-xs-4 pdu-metering-output-table-content" colspan="5">
+								{{configurationFrequency}} Hz
+							</td>
+						</tr>
+					</tbody>				
+				</table>
+			</div>
+			<div class="pdu-metering-settings-table-panel" style="margin-bottom: 0;border: 1px solid rgba(221, 221, 221, .5);">	
+				<table class="table">				 
+					<tbody>		
+						<tr>
+							<td class="pdu-metering-thermal-panel-header" colspan="10">
+								<div>
+									CT
+								</div>
+							</td>						
+						</tr>
+						<tr  class="pdu-metering-output-table-row">
+							<td class="col-xs-8 pdu-metering-output-table-content" colspan="5">
+								Line
+							</td>						
+							<td class="col-xs-4 pdu-metering-output-table-content" colspan="5">
+								{{line}} A
+							</td>
+						</tr>	
+						<tr  class="pdu-metering-output-table-row">
+							<td class="col-xs-8 pdu-metering-output-table-content" colspan="5">
+								Neutral
+							</td>						
+							<td class="col-xs-4 pdu-metering-output-table-content" colspan="5">
+								{{neutral}} A
+							</td>
+						</tr>									
+					</tbody>				
+				</table>
+			</div>
+			<div class="pdu-metering-settings-table-panel" style="margin-bottom: 0; border-left: 1px solid rgba(221, 221, 221, .5); border-right: 1px solid rgba(221, 221, 221, .5);">	
+				<table class="table">
+					<tbody>		
+						<tr>
+							<td class="pdu-metering-thermal-panel-header" colspan="10">
+								<div>
+									Demand
+								</div>
+							</td>						
+						</tr>
+						<tr  class="pdu-metering-output-table-row">
+							<td class="col-xs-8 pdu-metering-output-table-content" colspan="5">
+								Max Demand Period
+							</td>						
+							<td class="col-xs-4 pdu-metering-output-table-content" colspan="5">
+								{{demandPeriod}} Min
+							</td>					
+						</tr>									
+					</tbody>				
+				</table>
+			</div>
+		</div>
+		
+		<!--Table View for Settings>Limits -->
+		<div class="card-layout-settings clearfix row1-col2-settings" style="padding-top: 0;">
+			<div class="pdu-metering-settings-table-panel box-shadow" style="margin-bottom: 0;border: 1px solid rgba(221, 221, 221, .5); height:100%;">	
+				<table class="table" style="border: 1px solid rgba(221, 221, 221, .5);">
+					<caption>Limits</caption>
+					<tbody>		
+						<tr>
+							<td class="col-xs-6 pdu-metering-thermal-panel-header" colspan="2">
+								<div>
+									Parameter
+								</div>
+							</td>	
+							<td class="pdu-metering-thermal-panel-header pdu-settings-configuration-content">
+								<div>
+									Warning
+								</div>
+							</td>
+							<td class="pdu-metering-thermal-panel-header pdu-settings-configuration-content">
+								<div>
+									Alarm
+								</div>
+							</td>	
+						</tr>
+						
+						<!-- Input -->
+						<tr  class="pdu-metering-output-table-row">
+							<td class="col-xs-3 pdu-metering-output-table-content pdu-settings-limits-content" rowspan="2">
+								Input
+							</td>
+							<td class="col-xs-3 pdu-metering-output-table-content pdu-settings-limits-content" style="border-bottom: transparent 1px solid;">		
+								Over Voltage(%)
+							</td>
+							<td class="pdu-metering-output-table-content pdu-settings-configuration-content">
+								<span editable-number="limitsInfo.Warning.InputOV" e-step="{{warningInputOVAttributes[2]}}" e-max="{{warningInputOVAttributes[1]}}" e-min="{{warningInputOVAttributes[0]}}" e-inputgroupright="Min:{{warningInputOVAttributes[0]}} Max:{{warningInputOVAttributes[1]}}" onaftersave="editModeFeatureValue($data,'Warning','InputOV','Limits')" class="ng-scope ng-binding editable editable-click editable-empty">{{limitsInfo.Warning.InputOV}}</span>
+								
+							</td>						
+							<td class="pdu-metering-output-table-content pdu-settings-configuration-content">
+								<span editable-number="limitsInfo.Alarm.InputOV" e-step="{{inputOVAttributes[2]}}" e-max="{{inputOVAttributes[1]}}" e-min="{{inputOVAttributes[0]}}" e-inputgroupright="Min:{{inputOVAttributes[0]}} Max:{{inputOVAttributes[1]}}" onaftersave="editModeFeatureValue($data, 'Alarm', 'InputOV','Limits')" class="ng-scope ng-binding editable editable-click editable-empty">{{limitsInfo.Alarm.InputOV}}</span>
+							</td>
+						</tr>
+						<tr  class="pdu-metering-output-table-row">						
+							<td class="col-xs-3 pdu-metering-output-table-content pdu-settings-limits-content" style="border-top: transparent 1px solid;">		
+								Under Voltage(%)
+							</td>
+							<td class="pdu-metering-output-table-content pdu-settings-configuration-content">
+								<span editable-number="limitsInfo.Warning.InputUV" e-step="{{warningInputUVAttributes[2]}}" e-max="{{warningInputUVAttributes[1]}}" e-min="{{warningInputUVAttributes[0]}}" e-inputgroupright="Min:{{warningInputUVAttributes[0]}} Max:{{warningInputUVAttributes[1]}}" onaftersave="editModeFeatureValue($data,'Warning','InputUV','Limits')" class="ng-scope ng-binding editable editable-click editable-empty">{{limitsInfo.Warning.InputUV}}</span>
+							</td>						
+							<td class="pdu-metering-output-table-content pdu-settings-configuration-content">
+								<span editable-number="limitsInfo.Alarm.InputUV" e-step="{{inputUVAttributes[2]}}" e-max="{{inputUVAttributes[1]}}" e-min="{{inputUVAttributes[0]}}" e-inputgroupright="Min:{{inputUVAttributes[0]}} Max:{{inputUVAttributes[1]}}" onaftersave="editModeFeatureValue($data,'Alarm','InputUV','Limits')" class="ng-scope ng-binding editable editable-click editable-empty">{{limitsInfo.Alarm.InputUV}}</span>
+							</td>
+							
+						</tr>
+						
+						<!-- Output -->
+						<tr  class="pdu-metering-output-table-row">
+							<td class="col-xs-3 pdu-metering-output-table-content pdu-settings-limits-content" rowspan="2">
+								Output
+							</td>
+							<td class="col-xs-3 pdu-metering-output-table-content pdu-settings-limits-content" style="border-bottom: transparent 1px solid;">		
+								Over Voltage(%)
+							</td>
+							<td class="pdu-metering-output-table-content pdu-settings-configuration-content">
+								<span editable-number="limitsInfo.Warning.OutputOV" e-step="{{warningOutputOVAttributes[2]}}" e-max="{{warningOutputOVAttributes[1]}}" e-min="{{warningOutputOVAttributes[0]}}" e-inputgroupright="Min:{{warningOutputOVAttributes[0]}} Max:{{warningOutputOVAttributes[1]}}" onaftersave="editModeFeatureValue($data,'Warning', 'OutputOV','Limits')" class="ng-scope ng-binding editable editable-click editable-empty">{{limitsInfo.Warning.OutputOV}}</span>
+							</td>						
+							<td class="pdu-metering-output-table-content pdu-settings-configuration-content">
+								<span editable-number="limitsInfo.Alarm.OutputOV" e-step="{{outputOVAttributes[2]}}" e-max="{{outputOVAttributes[1]}}" e-min="{{outputOVAttributes[0]}}" e-inputgroupright="Min:{{outputOVAttributes[0]}} Max:{{outputOVAttributes[1]}}" onaftersave="editModeFeatureValue($data, 'Alarm', 'OutputOV','Limits')" class="ng-scope ng-binding editable editable-click editable-empty">{{limitsInfo.Alarm.OutputOV}}</span>
+							</td>
+							
+						</tr>
+						<tr  class="pdu-metering-output-table-row">						
+							<td class="col-xs-3 pdu-metering-output-table-content pdu-settings-limits-content" style="border-top: transparent 1px solid;">		
+								Under Voltage(%)
+							</td>
+							<td class="pdu-metering-output-table-content pdu-settings-configuration-content">
+								<span editable-number="limitsInfo.Warning.OutputUV" e-step="{{warningOutputUVAttributes[2]}}" e-max="{{warningOutputUVAttributes[1]}}" e-min="{{warningOutputUVAttributes[0]}}" e-inputgroupright="Min:{{warningOutputUVAttributes[0]}} Max:{{warningOutputUVAttributes[1]}}" onaftersave="editModeFeatureValue($data,'Warning','OutputUV','Limits')" class="ng-scope ng-binding editable editable-click editable-empty">{{limitsInfo.Warning.OutputUV}}</span>
+							</td>						
+							<td class="pdu-metering-output-table-content pdu-settings-configuration-content">
+								<span editable-number="limitsInfo.Alarm.OutputUV" e-step="{{outputUVAttributes[2]}}" e-max="{{outputUVAttributes[1]}}" e-min="{{outputUVAttributes[0]}}" e-inputgroupright="Min:{{outputUVAttributes[0]}} Max:{{outputUVAttributes[1]}}" onaftersave="editModeFeatureValue($data,'Alarm','OutputUV','Limits')" class="ng-scope ng-binding editable editable-click editable-empty">{{limitsInfo.Alarm.OutputUV}}</span>
+							</td>
+						</tr>
+						<tr  class="pdu-metering-output-table-row">						
+							<td class="col-xs-3 pdu-metering-output-table-content" style="border-top: #d8d8d8 1px solid; border-right: #d8d8d8 1px solid;">		
+								Over Load(%)
+							</td>
+							<td class="col-xs-3 pdu-metering-output-table-content pdu-settings-limits-content">
+							</td>
+							<td class="pdu-metering-output-table-content pdu-settings-configuration-content">
+								<span editable-number="limitsInfo.Warning.OverCurrent" e-step="{{warningOverCurrentAttributes[2]}}" e-max="{{warningOverCurrentAttributes[1]}}" e-min="{{warningOverCurrentAttributes[0]}}" e-inputgroupright="Min:{{warningOverCurrentAttributes[0]}} Max:{{warningOverCurrentAttributes[1]}}" onaftersave="editModeFeatureValue($data,'Warning','OverCurrent','Limits')" class="ng-scope ng-binding editable editable-click editable-empty">{{limitsInfo.Warning.OverCurrent}}</span>
+							</td>						
+							<td class="pdu-metering-output-table-content pdu-settings-configuration-content">
+								<span editable-number="limitsInfo.Alarm.OverCurrent" e-step="{{overCurrentAttributes[2]}}" e-max="{{overCurrentAttributes[1]}}" e-min="{{overCurrentAttributes[0]}}" e-inputgroupright="Min:{{overCurrentAttributes[0]}} Max:{{overCurrentAttributes[1]}}" onaftersave="editModeFeatureValue($data,'Alarm','OverCurrent','Limits')" class="ng-scope ng-binding editable editable-click editable-empty">{{limitsInfo.Alarm.OverCurrent}}</span>
+							</td>						
+						</tr>
+						
+						<!-- System -->
+						<tr  class="pdu-metering-output-table-row">
+							<td class="col-xs-3 pdu-metering-output-table-content pdu-settings-limits-content" rowspan="2">
+								System
+							</td>
+							<td class="col-xs-3 pdu-metering-output-table-content pdu-settings-limits-content" style="border-bottom: transparent 1px solid;">		
+								Neutral Current(A)
+							</td>
+							<td class="pdu-metering-output-table-content pdu-settings-configuration-content">
+								{{}}
+							</td>						
+							<td class="pdu-metering-output-table-content pdu-settings-configuration-content">
+								<span editable-number="limitsInfo.Alarm.NutralCurrent" e-step="{{neutralCurrentAttributes[2]}}" e-max="{{neutralCurrentAttributes[1]}}" e-min="{{neutralCurrentAttributes[0]}}" e-inputgroupright="Min:{{neutralCurrentAttributes[0]}} Max:{{neutralCurrentAttributes[1]}}" onaftersave="editModeFeatureValue($data,'Alarm','NutralCurrent','Limits')" class="ng-scope ng-binding editable editable-click editable-empty">{{limitsInfo.Alarm.NutralCurrent}} A</span>
+							</td>
+						</tr>
+						<tr  class="pdu-metering-output-table-row">						
+							<td class="col-xs-3 pdu-metering-output-table-content pdu-settings-limits-content" style="border-top: transparent 1px solid;">		
+								Ground Current(A)
+							</td>
+							<td class="pdu-metering-output-table-content pdu-settings-configuration-content">
+								{{}}
+							</td>						
+							<td class="pdu-metering-output-table-content pdu-settings-configuration-content">
+								<span editable-number="limitsInfo.Alarm.GndCurrent" e-step="{{groundCurrentAttributes[2]}}" e-max="{{groundCurrentAttributes[1]}}" e-min="{{groundCurrentAttributes[0]}}" e-inputgroupright="Min:{{groundCurrentAttributes[0]}} Max:{{groundCurrentAttributes[1]}}" onaftersave="editModeFeatureValue($data,'Alarm','GndCurrent','Limits')" class="ng-scope ng-binding editable editable-click editable-empty">{{limitsInfo.Alarm.GndCurrent}} A</span>
+							</td>
+						</tr>
+						<!-- Frequency -->
+						<tr  class="pdu-metering-output-table-row">
+							<td class="col-xs-3 pdu-metering-output-table-content pdu-settings-limits-content">
+								Frequency
+							</td>
+							<td class="col-xs-3 pdu-metering-output-table-content">
+							</td>
+							<td class="pdu-metering-output-table-content pdu-settings-configuration-content">
+								
+							</td>						
+							<td class="pdu-metering-output-table-content pdu-settings-configuration-content">
+								<span editable-number="limitsInfo.Alarm.Frequency" e-step="{{alarmfrequencyAttributes[2]}}" e-max="{{alarmfrequencyAttributes[1]}}" e-min="{{alarmfrequencyAttributes[0]}}" e-inputgroupright="Min:{{alarmfrequencyAttributes[0]}} Max:{{alarmfrequencyAttributes[1]}}" onaftersave="editModeFeatureValue($data,'Alarm','Frequency','Limits')" class="ng-scope ng-binding editable editable-click editable-empty">{{limitsInfo.Alarm.Frequency}} Hz</span>
+							</td>
+						</tr>
+					</tbody>				
+				</table>
+			</div>
+			<!-- Limits End -->
+			
+		</div>
+	</div>
+</div>

@@ -1,0 +1,501 @@
+<div ng-controller="PduMeteringSettingsController">
+
+	<div class="header-layout clearfix"  style="border: #d8d8d8 1px solid; background: white; box-shadow: 0px 2px 5px #d8d8d8; position: fixed; z-index: 1;">  
+		Settings
+		<div ng-if="editMode" class="clearfix save-discard-container">
+			<button class="pull-right boxbackground button-grp-1" ng-click="saveChanges()"><span class="glyphicon glyphicon-ok"></span> &nbsp; Save</button>
+			<button class="pull-right boxbackground button-grp" ng-click="discardChanges()"><span class="glyphicon glyphicon-remove"></span> &nbsp; Discard Changes</button>
+		</div>
+	</div>
+
+	<!--<div class="panel panel-default border-btm clearfix"  style="border: #d8d8d8 1px solid; background: white; box-shadow: 0px 2px 5px #d8d8d8;">		-->
+	<div class="clearfix panel-settings-container">
+		
+		<div class="clearfix panel-settings">
+		
+			<!--Settings>Network Start -->
+			<div class="card-layout-settings row2-col1-settings">					
+				<div class="pdu-metering-settings-table-panel box-shadow" style="margin-bottom: 0;border: 1px solid rgba(221, 221, 221, .5);  height: 100%">	
+					<table class="table" style="margin-bottom: 0;">
+						<caption>Network</caption>
+						<tbody>	
+							<tr  class="pdu-metering-output-table-row">						
+								<td class="pdu-metering-output-table-content">
+									Type
+								</td>											
+								<td class="pdu-metering-output-table-content">
+									DHCP
+									<!--<input type="radio" name="optNwType" id="dynamic" checked disabled>	
+									<label for="dynamic" style="font-weight: normal">DHCP</label>	-->							
+								</td>
+								<!--
+								<td class="pdu-metering-output-table-content" colspan="4">
+									
+									<input type="radio" name="optNwType" id="static" disabled>
+									<label for="static" style="font-weight: normal">STATIC</label>
+								</td>
+								-->
+							</tr>	
+							<tr  class="pdu-metering-output-table-row">
+								<td class="pdu-metering-output-table-content">
+									IP Address
+								</td>
+								<td class="pdu-metering-output-table-content">
+									{{ipaddress}}
+								</td>				
+							</tr>	
+							<tr  class="pdu-metering-output-table-row">
+								<td class="pdu-metering-output-table-content">
+									Gateway
+								</td>
+								<td class="pdu-metering-output-table-content">
+									{{gateway}}
+								</td>
+							</tr>
+							<tr  class="pdu-metering-output-table-row">
+								<td class="pdu-metering-output-table-content">
+									Mask
+								</td>
+								<td class="pdu-metering-output-table-content">
+									{{subnet}}
+								</td>						
+							</tr>
+							
+						</tbody>				
+					</table>
+				</div>					
+			</div>
+			<!-- Network End -->
+			
+			<!--Table View for Settings>General -> Date & Time -->
+			<div class="card-layout-settings row2-col2-settings">
+				<div class="pdu-metering-settings-table-panel box-shadow" style="margin-bottom: 0;border: 1px solid rgba(221, 221, 221, .5);  height: 100%">	
+					<table class="table">
+						
+						<tbody>		
+							<tr>
+								<td class="pdu-metering-thermal-panel-header" colspan="2">
+									<div>
+										Date & Time
+									</div>
+								</td>						
+							</tr>
+							<tr  class="pdu-metering-output-table-row">
+								<td class="pdu-metering-output-table-content col-xs-6">
+									Time
+								</td>
+								<td class="pdu-metering-output-table-content">
+									{{datetime.DateTime.Time}}
+								</td>
+							</tr>	
+							<tr  class="pdu-metering-output-table-row" >
+								<td class="pdu-metering-output-table-content col-xs-6">
+									Date
+								</td>
+								<td class="pdu-metering-output-table-content">
+									{{datetime.DateTime.Date}}
+								</td>	
+							</tr>	
+							<tr  class="pdu-metering-output-table-row">
+								<td class="pdu-metering-output-table-content col-xs-6">
+									Zone
+								</td>
+								<td class="pdu-metering-output-table-content">							
+									<span class="time-zone-select" editable-select="selectorIdTimezone.status" e-ng-options="s.value as s.text for s in statusesTimezone" onaftersave="editModeFeatureValue(showStatusTimezone(),'TimeZone','','General');">
+											{{ showStatusTimezone() }}
+									</span>
+								</td>
+							</tr>
+							<tr  class="pdu-metering-output-table-row">
+								<td class="pdu-metering-output-table-content col-xs-6">
+									NTP
+								</td>
+								<td class="pdu-metering-output-table-content">
+									<input type="checkbox" ng-model="general1.NTPOnOff" ng-change="editModeFeatureState('General');" name="NTPOnOff" bootstrap-switch />
+								</td>
+							</tr>					
+						</tbody>				
+					</table>
+				</div>
+			</div>
+			
+			<!-- System Settings start -->
+			<div class="card-layout-settings row2-col3-settings">
+				<div class="pdu-metering-settings-table-panel box-shadow" style="margin-bottom: 0;border: 1px solid rgba(221, 221, 221, .5);  height: 100%">	
+					<table class="table">
+						<tbody>		
+							<tr>
+								<td class="pdu-metering-thermal-panel-header" colspan="3">
+									<div>
+										System Settings
+									</div>
+								</td>						
+							</tr>
+							<tr  class="pdu-metering-output-table-row">
+								<td class="col-xs-6 pdu-metering-output-table-content">
+									Display Contrast
+								</td>
+								<td class="pdu-metering-output-table-content">																		
+									<span id="contrastId" style="width:100%;margin-left: 0px;" data-range-slider data-floor="20" data-ceiling="100" data-step="1"  ng-click="editModeFeatureValue(contrast, 'Contrast','','General')" data-precision="1" data-highlight="left" data-ng-model="contrast"> </span>																
+								</td>
+								<td>
+									<span style="    position: relative; top: 8px; left: 8px;">{{contrast}}%</span>
+								</td>
+							</tr>	
+							<tr  class="pdu-metering-output-table-row">
+								<td class="col-xs-6 pdu-metering-output-table-content">
+									Audible Alarm
+								</td>
+								<td class="pdu-metering-output-table-content" colspan="2">
+									<span class="{{general1.Audio}}" ng-click="editModeFeatureValue(general1.Audio, 'Audio','','General')"></span>
+								</td>						
+							</tr>	
+							<tr  class="pdu-metering-output-table-row">
+								<td class="col-xs-6 pdu-metering-output-table-content">
+									Security
+								</td>
+								<td class="pdu-metering-output-table-content" colspan="2">
+									<input type="checkbox" ng-model="general1.Security" ng-change="editModeFeatureState('General');" name="Security" bootstrap-switch />
+								</td>
+							</tr>
+							<tr  class="pdu-metering-output-table-row">
+								<td class="col-xs-6 pdu-metering-output-table-content">
+									Manual Restart
+								</td>
+								<td class="pdu-metering-output-table-content" colspan="2">
+									<input type="checkbox" ng-model="general1.ManualRestart" ng-change="editModeFeatureState('General');" name="ManualRestart" bootstrap-switch />
+								</td>
+							</tr>
+							
+						</tbody>				
+					</table>
+				</div>
+			</div>
+			<!-- System Settings end -->
+			
+			
+				
+			<!-- Email Start -->
+			<div class="card-layout-settings row3-col1-settings">					
+				<div class="pdu-metering-settings-table-panel box-shadow" style="margin-bottom: 0;border: 1px solid rgba(221, 221, 221, .5); height: 100%">	
+					<table class="table" style="margin-bottom: 0;">
+						<tbody>		
+							<tr style="height: 50px;">
+								<td class="caption-email col-xs-6">
+									<div>
+										Email
+									</div>
+								</td>
+								<td>
+									<div class="col-xs-6">
+										<input type="checkbox" ng-model="EmailOnOff" ng-change="editModeFeatureState('Email');" name="EmailOnOff" bootstrap-switch />								
+									</div>
+								</td>						
+							</tr>
+							<tr  class="pdu-metering-output-table-row">
+								<td class="col-xs-6 pdu-metering-email-table-content email-notification-content">
+									Server
+								</td>
+								<td class="pdu-metering-email-table-content">									
+									<span class="email-server-editable-text" ng-click="test1();" editable-text="email.EmailServer" onaftersave="editModeFeatureValue($data,'EmailServer','','Email');">{{email.EmailServer}}</span>
+								</td>
+							</tr>	
+							<tr  class="pdu-metering-output-table-row">
+								<td class="col-xs-6 pdu-metering-email-table-content email-notification-content">
+									Port
+								</td>
+								<td class="pdu-metering-email-table-content">
+									<span editable-number="email.EmailPort" e-min="1" onaftersave="editModeFeatureValue($data,'EmailPort','','Email');">{{email.EmailPort}}</span>
+								</td>
+							</tr>						
+						</tbody>				
+					</table>
+				</div>					
+			</div>
+			<!-- Email End -->
+			
+				
+			
+		<!--Table View for Settings>Email Notification -->
+		<div class="card-layout-settings row3-col2-settings">
+			
+			<div class="pdu-metering-settings-table-panel box-shadow" style="margin-bottom: 0;border: 1px solid rgba(221, 221, 221, .5); height: 100%">	
+				<table class="table" style="margin-bottom: 0;">
+					<tbody>	
+						<tr>
+							<td class="pdu-metering-thermal-panel-header" colspan="10">
+								<div>
+									Email Notification
+								</div>
+							</td>						
+						</tr>
+						<tr  class="pdu-metering-output-table-row">
+							<td class="col-xs-3 pdu-metering-email-table-content email-notification-content" colspan="3">
+								Email1
+							</td>
+							<td class="pdu-metering-email-app-content" colspan="7">
+								<span editable-email="email.Email1" onaftersave="editModeFeatureValue($data,'Email1','','Email');">{{email.Email1}}</span>
+							</td>
+						</tr>	
+						<tr  class="pdu-metering-output-table-row">
+							<td class="col-xs-3 pdu-metering-email-table-content email-notification-content" colspan="3">
+								Email2
+							</td>
+							<td class="pdu-metering-email-app-content" colspan="7">
+								<span editable-email="email.Email2" onaftersave="editModeFeatureValue($data,'Email2','','Email');">{{email.Email2}}</span>
+							</td>
+						</tr>
+						<tr  class="pdu-metering-output-table-row">
+							<td class="col-xs-3 pdu-metering-email-table-content email-notification-content" colspan="3">
+								Application
+							</td>
+							<td class="col-xs-3 pdu-metering-email-app-content" colspan="2">							
+								<input type="checkbox" ng-model="emailNotify.Application.Email1" ng-change="editModeFeatureState('Email');" name="application"> &nbsp;&nbsp;Email1
+							</td>
+							<td class="col-xs-3 pdu-metering-email-app-content" colspan="2">
+								<input type="checkbox" ng-model="emailNotify.Application.Email2" ng-change="editModeFeatureState('Email');" name="application"> &nbsp;&nbsp;Email2
+							</td>
+							<td class="col-xs-3 pdu-metering-email-app-content" colspan="3">
+								<input type="checkbox" ng-model="emailNotify.Application.Service" ng-change="editModeFeatureState('Email');" name="application"> &nbsp;&nbsp;Service
+							</td>
+						</tr>
+						<tr  class="pdu-metering-output-table-row">
+							<td class="col-xs-3 pdu-metering-email-table-content email-notification-content" colspan="3">
+								Log Dump
+							</td>
+							<td class="col-xs-3 pdu-metering-email-app-content" colspan="2">							
+								<input type="checkbox" ng-model="emailNotify.LogDump.Email1" ng-change="editModeFeatureState('Email');" name="logdump"> &nbsp;&nbsp;Email1
+							</td>
+							<td class="col-xs-3 pdu-metering-email-app-content" colspan="2">
+								<input type="checkbox" ng-model="emailNotify.LogDump.Email2" ng-change="editModeFeatureState('Email');" name="logdump"> &nbsp;&nbsp;Email 2
+							</td>
+							<td class="col-xs-3 pdu-metering-email-app-content" colspan="3">
+								<input type="checkbox" ng-model="emailNotify.LogDump.Service" ng-change="editModeFeatureState('Email');" name="logdump"> &nbsp;&nbsp;Service
+							</td>				
+						</tr>
+						<tr  class="pdu-metering-output-table-row">
+							<td class="col-xs-3 pdu-metering-email-table-content email-notification-content" colspan="3">
+								Alerts
+							</td>
+							<td class="col-xs-3 pdu-metering-email-app-content" colspan="2">							
+								<input type="checkbox" ng-model="emailNotify.Alerts.Email1" ng-change="editModeFeatureState('Email');" name="alerts"> &nbsp;&nbsp;Email1
+							</td>
+							<td class="col-xs-3 pdu-metering-email-app-content" colspan="2">
+								<input type="checkbox" ng-model="emailNotify.Alerts.Email2" ng-change="editModeFeatureState('Email');" name="alerts"> &nbsp;&nbsp;Email 2
+							</td>
+							<td class="col-xs-3 pdu-metering-email-app-content" colspan="3">
+								<input type="checkbox" ng-model="emailNotify.Alerts.Service" ng-change="editModeFeatureState('Email');" name="alerts"> &nbsp;&nbsp;Service
+							</td>
+						</tr>
+						<tr  class="pdu-metering-output-table-row">
+							<td class="col-xs-3 pdu-metering-email-table-content email-notification-content" colspan="3">
+								Alert Content
+							</td>
+							<td class="col-xs-3 pdu-metering-email-app-content" colspan="2">							
+								<input type="radio" ng-click="editModeFeatureState('Email');" name="optAlert" id="lasthourId">
+								<label for="lasthourId" style="font-weight: normal">Last Hour</label>	
+							</td>
+							<td class="col-xs-3 pdu-metering-email-app-content" colspan="2">
+								<input type="radio" ng-click="editModeFeatureState('Email');" name="optAlert" id="lastdayId">
+								<label for="lastdayId" style="font-weight: normal">Last Day</label>
+							</td>
+							<td class="col-xs-3 pdu-metering-email-app-content" colspan="3">
+								<input type="radio" ng-click="editModeFeatureState('Email');" name="optAlert" id="last20Id">
+								<label for="last20Id" style="font-weight: normal">Last Day</label>
+							</td>			
+						</tr>
+					</tbody>				
+				</table>
+			</div>
+			
+		</div>
+			
+		
+		<!--Table View for Settings>Protocols -->
+		<div class="card-layout-settings row4-settings">				
+			<div class="pdu-metering-protocols-panel">	
+				<table class="table box-shadow" style="margin-bottom: 0;border: 1px solid rgba(221, 221, 221, .5);">				
+					<tbody>
+						<tr  class="pdu-metering-settings-panel-header">
+							<td class="pdu-metering-settings-panel-header-left">
+								<div>
+									Modbus TCP
+								</div>
+							</td>
+							<td class="pdu-metering-settings-panel-header-right">
+								<input type="checkbox" ng-model="protocols.modbusTCPOnOff" id="test" ng-change="editModeFeatureState('Protocols');" name="modbusTCPOnOff" bootstrap-switch />
+							</td>
+						</tr>
+						<tr>
+							<td class="pdu-metering-setings-protocol-panel-content" colspan="2">
+								<table class="table">
+									<tbody>
+										<tr>
+											<td class="col-xs-6">IP1</td>
+											<td>
+												<span editable-text="protocols.modbusTCP1" onaftersave="editModeFeatureValue($data,'modbusTCP1','','Protocols');">{{protocols.modbusTCP1}}</span>
+											</td>
+										</tr>
+										<tr>
+											<td class="col-xs-6">IP2</td>										
+											<td>
+												<span editable-text="protocols.modbusTCP2" onaftersave="editModeFeatureValue($data,'modbusTCP2','','Protocols');">{{protocols.modbusTCP2}}</span>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</td>
+						</tr>
+					</tbody>				
+				</table>
+			</div>
+		</div>
+		<div class="card-layout-settings row4-settings">
+			<div class="pdu-metering-protocols-panel">	
+				<table class="table box-shadow" style="margin-bottom: 0;border: 1px solid rgba(221, 221, 221, .5);">
+					<tbody>
+						<tr  class="pdu-metering-settings-panel-header">
+							<td class="pdu-metering-settings-panel-header-left">
+								<div>
+									Modbus RTU
+								</div>
+							</td>
+							<td class="pdu-metering-settings-panel-header-right">							
+								<input type="checkbox" ng-model="protocols.modbusRTUOnOff" ng-change="editModeFeatureState('Protocols');" name="modbusRTUOnOff" bootstrap-switch />							
+							</td>
+						</tr>
+						<tr>
+							<td class="pdu-metering-setings-protocol-panel-content"" colspan="2">
+								<table class="table">
+									<tbody>
+										<tr>
+											<td class="col-xs-6">Unit Id</td>
+											<td>
+												<span editable-number="protocols.UnitID" class="custom-editable" e-step="1" e-max="255" e-min="1" e-inputgroupright="Min:{{1}} Max:{{255}}" onaftersave="editModeFeatureValue($data,'UnitID','','Protocols');">{{protocols.UnitID}}</span>
+											</td>
+										</tr>
+										<tr>
+											<td class="col-xs-6">Baud</td>										
+											<td>
+												<span editable-select="selectorId.status" class="custom-editable-select" e-ng-options="s.value as s.text for s in statuses" onaftersave="editModeFeatureValue(showStatus(),'Baud','','Protocols');">
+													{{ showStatus() }}
+												</span>
+											</td>
+										</tr>
+										<tr>
+											<td class="col-xs-6">Parity</td>
+											<td>
+												<span editable-select="selectorIdParity.status" class="custom-editable-select" e-ng-options="s.value as s.text for s in statusesParity" onaftersave="editModeFeatureValue(showStatusParity(),'Parity','','Protocols');">
+													{{ showStatusParity() }}
+												</span>
+											</td>
+										</tr>
+										<tr>
+											<td class="col-xs-6">Stop</td>										
+											<td>
+												<span editable-number="protocols.StopBits" class="custom-editable" e-step="1" e-max="1" e-min="0" e-inputgroupright="Min:{{0}} Max:{{1}}" onaftersave="editModeFeatureValue($data,'StopBits','','Protocols');">{{protocols.StopBits}}</span>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</td>
+						</tr>
+					</tbody>				
+				</table>
+			</div>
+		</div>
+		
+		<div class="card-layout-settings row4-settings">				
+			<div class="pdu-metering-protocols-panel">	
+				<table class="table box-shadow" style="margin-bottom: 0;border: 1px solid rgba(221, 221, 221, .5);">
+					<tbody>
+						<tr  class="pdu-metering-settings-panel-header">
+							<td class="pdu-metering-settings-panel-header-left">
+								<div>
+									TFTP
+								</div>
+							</td>
+							<td class="pdu-metering-settings-panel-header-right">							
+							</td>
+						</tr>
+						<tr>
+							<td class="pdu-metering-setings-protocol-panel-content" colspan="2">
+								<table class="table">
+									<tbody>
+										<tr>
+											<td class="col-xs-6">Server Address</td>
+											<td>
+												<span editable-text="protocols.TFTPServer" onaftersave="editModeFeatureValue($data,'TFTPServer','','Protocols');" >{{protocols.TFTPServer}}</span>
+											</td>
+										</tr>
+										<tr>
+											<td class="col-xs-6">File Name</td>										
+											<td>
+												<span editable-text="protocols.TFTPFileName" onaftersave="editModeFeatureValue($data,'TFTPFileName','','Protocols');">{{protocols.TFTPFileName}}</span>
+											</td>
+										</tr>									
+									</tbody>
+								</table>
+							</td>
+						</tr>
+					</tbody>				
+				</table>
+			</div>
+		</div>
+		
+		<div class="card-layout-settings row4-settings">
+			<div class="pdu-metering-protocols-panel">	
+				<table class="table box-shadow" style="margin-bottom: 0;border: 1px solid rgba(221, 221, 221, .5);">
+					<tbody>
+						<tr  class="pdu-metering-settings-panel-header">
+							<td class="pdu-metering-settings-panel-header-left">
+								<div>
+									Others
+								</div>
+							</td>
+							<td class="pdu-metering-settings-panel-header-right">							
+							</td>
+						</tr>
+						<tr>
+							<td class="pdu-metering-setings-protocol-panel-content" colspan="2">
+								<table class="table">
+									<tbody>
+										<tr>
+											<td class="col-xs-6">
+												<div>
+													SSH
+												</div>
+											</td>
+											<td>
+												<input type="checkbox" ng-model="protocols.SSH" ng-change="editModeFeatureState('Protocols');" name="SSH" bootstrap-switch />
+											</td>
+										</tr>	
+										<tr>
+											<td class="col-xs-6">
+												<div>
+													Web
+												</div>
+											</td>
+											<td>
+												<input type="checkbox" ng-model="protocols.Web" ng-change="editModeFeatureState('Protocols');" name="Web" bootstrap-switch />
+											</td>
+										</tr>	
+										<tr>
+											<td class="col-xs-6">
+												<div>
+													SNMP
+												</div>
+											</td>
+											<td>
+												<input type="checkbox" ng-model="protocols.SNMP" ng-change="editModeFeatureState('Protocols');" name="SNMP" bootstrap-switch />
+											</td>
+										</tr>	
+									</tbody>				
+								</table>
+							</td>					
+					</tbody>				
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

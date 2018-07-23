@@ -1,0 +1,117 @@
+<div ng-controller="AboutController">
+	<div class="header-layout clearfix"  style="border: #d8d8d8 1px solid; background: white; box-shadow: 0px 2px 5px #d8d8d8;">  
+		About
+	</div>
+	
+	<div class="clearfix panel-service">
+		<div class="card-layout-service clearfix box-shadow" style="margin-bottom: 0;">
+			<table class="table service-table" style="margin-bottom: 0;border: 1px solid rgba(221, 221, 221, .5);">
+				<caption>System</caption>
+				<tbody>	
+					<tr  class="pdu-metering-output-table-row">
+						<td class="col-xs-2 pdu-metering-report-table-content">
+							Rating
+						</td>
+						<td class="pdu-metering-report-table-content">
+							Input - {{rating.InVoltage}} V<br>
+							Output - {{rating.OutVoltage}} V, {{rating.Frequency}} Hz, {{rating.kW}} kVA
+						</td>	
+					</tr>
+					<tr  class="pdu-metering-output-table-row">
+						<td class="pdu-metering-report-table-content">
+							Serial Number
+						</td>
+						<td class="pdu-metering-report-table-content">
+							{{aboutInfo.SerialNo}}
+						</td>	
+					</tr>
+					<tr  class="pdu-metering-output-table-row">
+						<td class="pdu-metering-report-table-content">
+							Name
+						</td>
+						<td class="pdu-metering-report-table-content">
+							{{aboutInfo.Name}}
+						</td>
+					</tr>
+					<tr  class="pdu-metering-output-table-row">
+						<td class="pdu-metering-report-table-content">
+							Location
+						</td>
+						<td class="pdu-metering-report-table-content">
+							{{aboutInfo.Location}}
+						</td>
+					</tr>
+					<tr  class="pdu-metering-output-table-row">
+						<td class="pdu-metering-report-table-content">
+							Installation
+						</td>
+						<td class="pdu-metering-report-table-content">
+							{{aboutInfo.Install}}
+						</td>
+					</tr>
+					<tr  class="pdu-metering-output-table-row">
+						<td class="pdu-metering-report-table-content">
+							Last Serviced
+						</td>
+						<td class="pdu-metering-report-table-content">
+							{{aboutInfo.LastService}}
+						</td>
+					</tr>
+				</tbody>				
+			</table>
+		</div>
+		
+		<div class="card-layout-service clearfix box-shadow" style="margin-bottom: 0; ">
+			<table class="table service-table" style="margin-bottom: 0;border: 1px solid rgba(221, 221, 221, .5);">
+				<caption>Software</caption>
+				<thead>
+						<tr style="background-color: #f5f5f5;">
+							<th class="about-table-header-content" style="background: white; border-bottom: 1px solid rgba(221, 221, 221, .5);">BOARD</th>
+							<th class="about-table-header-content" style="background: white; border-bottom: 1px solid rgba(221, 221, 221, .5);">SW VERSION</th>
+							<th class="about-table-header-content" style="background: white; border-bottom: 1px solid rgba(221, 221, 221, .5);">LAST UPDATED</th>		
+						</tr>
+					</thead>
+				<tbody>					
+					<tr  class="pdu-metering-output-table-row">
+						<td class="pdu-metering-report-table-content">
+							FX
+						</td>
+						<td class="pdu-metering-report-table-content">
+							{{swVersion}}
+						</td>
+						<td class="pdu-metering-report-table-content">	
+							{{aboutInfo.LastUpdate}}
+						</td>						
+						
+					</tr>
+					<tr  class="pdu-metering-output-table-row">
+						<td class="pdu-metering-report-table-content">
+							Meter
+						</td>
+						<td class="pdu-metering-report-table-content">
+							{{meterSwVersion}}
+						</td>
+						<td class="pdu-metering-report-table-content">			
+							{{aboutInfo.LastUpdate}}
+						</td>							
+						
+					</tr>
+					<tr  class="pdu-metering-output-table-row">
+						<td class="pdu-metering-report-table-content">
+							Relay
+						</td>
+						<td class="pdu-metering-report-table-content">
+							<!--{{aboutInfo.SWVersion}}-->
+							iii
+						</td>
+						<td class="pdu-metering-report-table-content">			
+							{{aboutInfo.LastUpdate}}
+						</td>							
+						
+					</tr>
+				</tbody>				
+			</table>
+		</div>
+	</div>
+	
+</div>

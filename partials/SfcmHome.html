@@ -1,0 +1,364 @@
+<div ng-controller="SfcmHomeController">
+	
+	<div class="header-layout clearfix"  style="border: #d8d8d8 1px solid; background: white; box-shadow: 0px 2px 5px #d8d8d8;">  
+		SFCM Home
+	</div>
+	
+	<div class="table-graph-icon-layout clearfix">
+		<table class="table table-graph-icon-content">
+			<tbody>
+				<tr>
+					<td ng-click="toggleViewTableGraph($event, $index)" class="active-text-link" id="graphModeId">
+						<i class="fa fa-bar-chart graph-table-glyphicon" aria-hidden="true"></i>
+					</td>
+					<td ng-click="toggleViewTableGraph($event, $index)" id="tableModeId">
+						<i class="fa fa-table graph-table-glyphicon" aria-hidden="true"></i>
+					</td>
+				</tr>
+			</tbody>				
+		</table>			
+	</div>
+	
+	<!-- Graphical View -->
+	<div class="card-layout clearfix" ng-if="!toggleViewTableMode">
+			
+		<div class="col-xs-6 sfcm-home-status-panel">	
+			<table class="table box-shadow">
+				<tbody>
+					<tr class="sfcm-home-status-panel-header">
+						<td class="sfcm-home-status-panel-header-left">
+							<div>
+								Panel 1
+							</div>
+						</td>
+						<td class="sfcm-home-status-panel-header-right">
+							<div ng-if="panelConfig1.OnOff==='On'">
+								<a href="#/bcmhome"><img src="./images/icons/status/{{voltageResponse1.Status.Status}}.png" /></a>
+							</div>
+							<div ng-if="panelConfig1.OnOff==='Off'">
+								Off
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td ng-if="showCanvas" class="sfcm-home-status-panel-content" colspan="2" style="padding-left: 35px;">
+							<div>												
+								<canvas height="145px" class="chart chart-bar chart-container" chart-options="options" chart-data="panelData1"  chart-labels="labelsVoltageHarmonics" chart-colors="colorsVoltageHarmonics" chart-series="seriesVoltageHarmonics"></canvas> 
+							</div>
+						</td>	
+					</tr>
+				</tbody>				
+			</table>
+		</div>
+		
+		<div class="col-xs-6 sfcm-home-status-panel">	
+			<table class="table box-shadow">
+				<tbody>
+					<tr class="sfcm-home-status-panel-header">
+						<td class="sfcm-home-status-panel-header-left">
+							<div>
+								Panel 2
+							</div>
+						</td>
+						<td class="sfcm-home-status-panel-header-right">
+							<div ng-if="panelConfig2.OnOff==='On'">
+								<a href="#/bcmhome"><img src="./images/icons/status/{{voltageResponse2.Status.Status}}.png" /></a>
+							</div>
+							<div ng-if="panelConfig2.OnOff==='Off'">
+								Off
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td ng-if="showCanvas" class="sfcm-home-status-panel-content" colspan="2" style="padding-left: 35px;">
+							<canvas height="145px" class="chart chart-bar chart-container" chart-options="options" chart-data="panelData2"  chart-labels="labelsVoltageHarmonics" chart-colors="colorsVoltageHarmonics" chart-series="seriesVoltageHarmonics"></canvas> 
+						</td>	
+					</tr>
+				</tbody>				
+			</table>
+		</div>
+
+
+		 <div class="col-xs-6 sfcm-home-status-panel">	
+			 <table class="table box-shadow">
+				<tbody>
+					<tr class="sfcm-home-status-panel-header">
+						<td class="sfcm-home-status-panel-header-left">
+							<div>
+								Panel 3
+							</div>
+						</td>
+						<td class="sfcm-home-status-panel-header-right">
+							<div ng-if="panelConfig3.OnOff==='On'">
+								<a href="#/bcmhome"><img src="./images/icons/status/{{voltageResponse3.Status.Status}}.png" /></a>
+							</div>
+							<div ng-if="panelConfig3.OnOff==='Off'">
+								Off
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td ng-if="showCanvas" class="sfcm-home-status-panel-content" colspan="2" style="padding-left: 35px;">
+							<canvas class="chart chart-bar chart-container" chart-options="options" chart-data="panelData3"  chart-labels="labelsVoltageHarmonics" chart-colors="colorsVoltageHarmonics" chart-series="seriesVoltageHarmonics"></canvas> 
+						</td>	
+					</tr>
+				</tbody>				
+			</table>
+		</div>		
+	
+		<div class="col-xs-6 sfcm-home-status-panel">	
+			<table class="table box-shadow">
+				<tbody>
+					<tr class="sfcm-home-status-panel-header">
+						<td class="sfcm-home-status-panel-header-left">
+							<div>
+								Panel 4
+							</div>
+						</td>
+						<td class="sfcm-home-status-panel-header-right">
+							<div ng-if="panelConfig4.OnOff==='On'">
+								<a href="#/bcmhome"><img src="./images/icons/status/{{voltageResponse4.Status.Status}}.png" /></a>
+							</div>
+							<div ng-if="panelConfig4.OnOff==='Off'">
+								Off
+							</div>
+						</td>
+					</tr>
+					<tr>						
+						<td ng-if="showCanvas" class="sfcm-home-status-panel-content" colspan="2" style="padding-left: 35px;">
+							<canvas class="chart chart-bar chart-container" chart-options="options" chart-data="panelData4"  chart-labels="labelsVoltageHarmonics" chart-colors="colorsVoltageHarmonics" chart-series="seriesVoltageHarmonics"></canvas> 
+						</td>	
+					</tr>
+				</tbody>				
+			</table>
+		</div>
+							
+	</div>
+
+	<!-- Table View -->
+	<div class="card-layout clearfix" ng-if="toggleViewTableMode">
+		<div class="col-xs-6 sfcm-home-status-panel">	
+			<table class="table box-shadow">
+				<tbody>
+					<tr class="sfcm-home-status-panel-header">
+						<td class="sfcm-home-status-panel-header-left">
+							<div>
+								Panel 1
+							</div>
+						</td>
+						<td class="sfcm-home-status-panel-header-right">
+							<div ng-if="panelConfig1.OnOff==='On'">
+								<a href="#/bcmhome"><img src="./images/icons/status/{{voltageResponse1.Status.Status}}.png" /></a>
+							</div>
+							<div ng-if="panelConfig1.OnOff==='Off'">
+								Off
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td class="sfcm-home-status-panel-content" colspan="2">
+							<table class="table sfcm-home-table">
+								<thead>
+								  <tr>
+								     <th class="bcm-home-table-header"></th>
+								     <th class="bcm-home-table-header">A</th>
+								     <th class="bcm-home-table-header">B</th>
+								     <th class="bcm-home-table-header">C</th>
+								  </tr>
+								</thead>
+								<tbody>		
+									<tr>
+										<td class="col-xs-3 bcm-home-table-content-no-bold">Volt</td>
+										<td class="col-xs-3">{{voltageResponseValue1.Voltage.L1.toFixed(2)}} V</td>
+										<td class="col-xs-3">{{voltageResponseValue1.Voltage.L2.toFixed(2)}} V</td>
+										<td class="col-xs-3">{{voltageResponseValue1.Voltage.L3.toFixed(2)}} V</td>
+									</tr>							
+									<tr>
+										<td class="col-xs-3 bcm-home-table-content-no-bold">Current</td>
+										<td class="col-xs-3">{{currentResponse1.Current.L1.toFixed(2)}} A</td>
+										<td class="col-xs-3">{{currentResponse1.Current.L2.toFixed(2)}} A</td>
+										<td class="col-xs-3">{{currentResponse1.Current.L3.toFixed(2)}} A</td>
+									</tr>
+									<tr>
+										<td class="col-xs-3 bcm-home-table-content-no-bold">Frequency</td>
+										<td class="col-xs-3"></td>
+										<td class="col-xs-3">{{voltageResponse1.Frequency.Hz}} Hz</td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						</td>
+					</tr>
+				</tbody>				
+			</table>
+		</div>
+		<div class="col-xs-6 sfcm-home-status-panel">	
+			<table class="table box-shadow">
+				<tbody>
+					<tr class="sfcm-home-status-panel-header">
+						<td class="sfcm-home-status-panel-header-left">
+							<div>
+								Panel 2
+							</div>
+						</td>
+						<td class="sfcm-home-status-panel-header-right">
+							<div ng-if="panelConfig2.OnOff==='On'">
+								<a href="#/bcmhome"><img src="./images/icons/status/{{voltageResponse2.Status.Status}}.png" /></a>
+							</div>
+							<div ng-if="panelConfig2.OnOff==='Off'">
+								Off
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td class="sfcm-home-status-panel-content" colspan="2">
+							<table class="table sfcm-home-table">
+								<thead>
+								  <tr>
+								     <th class="bcm-home-table-header"></th>
+								     <th class="bcm-home-table-header">A</th>
+								     <th class="bcm-home-table-header">B</th>
+								     <th class="bcm-home-table-header">C</th>
+								  </tr>
+								</thead>
+								<tbody>		
+									<tr>
+										<td class="col-xs-3 bcm-home-table-content-no-bold">Volt</td>
+										<td class="col-xs-3">{{voltageResponseValue2.Voltage.L1.toFixed(2)}} V</td>
+										<td class="col-xs-3">{{voltageResponseValue2.Voltage.L2.toFixed(2)}} V</td>
+										<td class="col-xs-3">{{voltageResponseValue2.Voltage.L3.toFixed(2)}} V</td>
+									</tr>							
+									<tr>
+										<td class="col-xs-3 bcm-home-table-content-no-bold">Current</td>
+										<td class="col-xs-3">{{currentResponse2.Current.L1.toFixed(2)}} A</td>
+										<td class="col-xs-3">{{currentResponse2.Current.L2.toFixed(2)}} A</td>
+										<td class="col-xs-3">{{currentResponse2.Current.L3.toFixed(2)}} A</td>
+									</tr>
+									<tr>
+										<td class="col-xs-3 bcm-home-table-content-no-bold">Frequency</td>
+										<td class="col-xs-3"></td>
+										<td class="col-xs-3">{{voltageResponse2.Frequency.Hz}} Hz</td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						</td>
+					</tr>
+				</tbody>				
+			</table>
+		</div>
+		<div class="col-xs-6 sfcm-home-status-panel">	
+			<table class="table box-shadow">
+				<tbody>
+					<tr class="sfcm-home-status-panel-header">
+						<td class="sfcm-home-status-panel-header-left">
+							<div>
+								Panel 3
+							</div>
+						</td>
+						<td class="sfcm-home-status-panel-header-right">
+							<div>
+								<div ng-if="panelConfig3.OnOff==='On'">
+								<a href="#/bcmhome"><img src="./images/icons/status/{{voltageResponse3.Status.Status}}.png" /></a>
+							</div>
+							<div ng-if="panelConfig3.OnOff==='Off'">
+								Off
+							</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td class="sfcm-home-status-panel-content" colspan="2">
+							<table class="table sfcm-home-table">
+								<thead>
+								  <tr>
+								     <th class="bcm-home-table-header"></th>
+								     <th class="bcm-home-table-header">A</th>
+								     <th class="bcm-home-table-header">B</th>
+								     <th class="bcm-home-table-header">C</th>
+								  </tr>
+								</thead>
+								<tbody>		
+									<tr>
+										<td class="col-xs-3 bcm-home-table-content-no-bold">Volt</td>
+										<td class="col-xs-3">{{voltageResponseValue3.Voltage.L1.toFixed(2)}} V</td>
+										<td class="col-xs-3">{{voltageResponseValue3.Voltage.L2.toFixed(2)}} V</td>
+										<td class="col-xs-3">{{voltageResponseValue3.Voltage.L3.toFixed(2)}} V</td>
+									</tr>							
+									<tr>
+										<td class="col-xs-3 bcm-home-table-content-no-bold">Current</td>
+										<td class="col-xs-3">{{currentResponse3.Current.L1.toFixed(2)}} A</td>
+										<td class="col-xs-3">{{currentResponse3.Current.L2.toFixed(2)}} A</td>
+										<td class="col-xs-3">{{currentResponse3.Current.L3.toFixed(2)}} A</td>
+									</tr>
+									<tr>
+										<td class="col-xs-3 bcm-home-table-content-no-bold">Frequency</td>
+										<td class="col-xs-3"></td>
+										<td class="col-xs-3">{{voltageResponse3.Frequency.Hz}} Hz</td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						</td>
+					</tr>
+				</tbody>				
+			</table>
+		</div>
+		<div class="col-xs-6 sfcm-home-status-panel">	
+			<table class="table box-shadow">
+				<tbody>
+					<tr class="sfcm-home-status-panel-header">
+						<td class="sfcm-home-status-panel-header-left">
+							<div>
+								Panel 4
+							</div>
+						</td>
+						<td class="sfcm-home-status-panel-header-right">
+							<div ng-if="panelConfig4.OnOff==='On'">
+								<a href="#/bcmhome"><img src="./images/icons/status/{{voltageResponse4.Status.Status}}.png" /></a>
+							</div>
+							<div ng-if="panelConfig4.OnOff==='Off'">
+								Off
+							</div>
+						</td>
+					</tr>
+					<tr>						
+						<td class="sfcm-home-status-panel-content" colspan="2">
+							<table class="table sfcm-home-table">
+								<thead>
+								  <tr>
+								     <th class="bcm-home-table-header"></th>
+								     <th class="bcm-home-table-header">A</th>
+								     <th class="bcm-home-table-header">B</th>
+								     <th class="bcm-home-table-header">C</th>
+								  </tr>
+								</thead>
+								<tbody>		
+									<tr>
+										<td class="col-xs-3 bcm-home-table-content-no-bold">Volt</td>
+										<td class="col-xs-3">{{voltageResponseValue4.Voltage.L1.toFixed(2)}} V</td>
+										<td class="col-xs-3">{{voltageResponseValue4.Voltage.L2.toFixed(2)}} V</td>
+										<td class="col-xs-3">{{voltageResponseValue4.Voltage.L3.toFixed(2)}} V</td>
+									</tr>							
+									<tr>
+										<td class="col-xs-3 bcm-home-table-content-no-bold">Current</td>
+										<td class="col-xs-3">{{currentResponse4.Current.L1.toFixed(2)}} A</td>
+										<td class="col-xs-3">{{currentResponse4.Current.L2.toFixed(2)}} A</td>
+										<td class="col-xs-3">{{currentResponse4.Current.L3.toFixed(2)}} A</td>
+									</tr>
+									<tr>
+										<td class="col-xs-3 bcm-home-table-content-no-bold">Frequency</td>
+										<td class="col-xs-3"></td>
+										<td class="col-xs-3">{{voltageResponse4.Frequency.Hz}} Hz</td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						</td>
+					</tr>
+				</tbody>				
+			</table>
+		</div>
+	</div>
+	
+</div>

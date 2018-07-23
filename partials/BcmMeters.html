@@ -1,0 +1,89 @@
+<div ng-controller="BcmMetersController">
+	
+	<!-- Panel Number Selection -->
+	<div class="clearfix panel-service">
+		<div class="card-layout-bcm-meters clearfix box-shadow">			
+			<table class="table" style="margin-bottom: 0;border: 0">
+				<caption>BCM Meters</caption>
+				<tbody>		
+					<tr>
+						<td class="col-xs-3 bcm-meters-paneltable-content" style="padding-left: 5px;">
+							Panel Number
+						</td>	
+						<td class="bcm-meters-paneltable-content">
+							<select ng-model="selectedPanel" ng-options="panelNumber for panelNumber in panelNumbers" ng-change="panelChanged(selectedPanel);" style="width:50px">								
+							</select>								
+						</td>
+						<td class="bcm-meters-paneltable-content">
+														
+						</td>
+					</tr>
+			</table>
+		</div>
+		
+		<!-- Panel View -->
+		<div class="card-layout-bcm-meters clearfix box-shadow">
+			<table class="table">
+				<tbody>
+					<tr ng-repeat="meterNumber in meterNumbers">
+						<td class="col-xs-4 bcm-meters-table-outer-content" ng-click="branchInfo($event);">
+							<table class="table" style="margin: 0;">
+								<tbody>
+									<tr>
+										<td class="col-xs-2 bcm-meters-table-content">
+											{{meterNumber}}
+										</td>								
+										<td class="col-xs-4 bcm-meters-table-content">
+											<input type="checkbox" ng-model="panelStates[meterNumber-1]" name="" bootstrap-switch/>
+										</td>
+										<td class="col-xs-2 bcm-meters-table-content">
+											<a href="#/bcmmeters"><img src="./images/icons/status/{{panelStatuses[meterNumber-1]}}.png"></a>
+										</td>
+										<td class="col-xs-2"></td>
+									</tr>
+								</tbody>				
+							</table>
+						</td>
+						<td class="col-xs-4 bcm-meters-table-outer-content" ng-click="branchInfo($event);">
+							<table class="table" style="margin: 0;">
+								<tbody>
+									<tr>
+										<td class="col-xs-2 bcm-meters-table-content">
+											{{meterNumber+1}}
+										</td>								
+										<td class="col-xs-4 bcm-meters-table-content">
+											<input type="checkbox" ng-model="panelStates[meterNumber]" ng-change="" name="" bootstrap-switch />
+										</td>
+										<td class="col-xs-2 bcm-meters-table-content">
+											<a href="#/bcmmeters"><img src="./images/icons/status/{{panelStatuses[meterNumber]}}.png"></a>
+										</td>
+										<td class="col-xs-2"></td>
+									</tr>
+								</tbody>				
+							</table>
+						</td>
+						<td class="col-xs-4 bcm-meters-table-outer-content" ng-click="branchInfo($event);">
+							<table class="table" style="margin: 0;">
+								<tbody>
+									<tr>
+										<td class="col-xs-2 bcm-meters-table-content">
+											{{meterNumber+2}}
+										</td>								
+										<td class="col-xs-4 bcm-meters-table-content">
+											<input type="checkbox" ng-model="panelStates[meterNumber+1]" ng-change="" name="" bootstrap-switch />
+										</td>
+										<td class="col-xs-2 bcm-meters-table-content">
+											<a href="#/bcmmeters"><img src="./images/icons/status/{{panelStatuses[meterNumber+1]}}.png"></a>
+										</td>
+										<td class="col-xs-2"></td>
+									</tr>
+								</tbody>				
+							</table>
+						</td>
+					</tr>	
+				</tbody>				
+			</table>		
+		</div>
+	</div>
+	
+</div>

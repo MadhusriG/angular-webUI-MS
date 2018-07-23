@@ -1,0 +1,137 @@
+<div ng-controller="EventController"> 			
+	<!-- Active Events View -->
+	<div class="events-container">
+		<div class="panel panel-default border-btm"  style="border: #d8d8d8 1px solid; background: white; box-shadow: 0px 2px 5px #d8d8d8;">                    
+			<div class="clearfix gutter1 mr-top15" style="margin:0">
+				<div style="margin-right: 40px;">
+					<table class="table" style="margin:0">
+						<tr class="pdu-metering-status-panel-header">
+							<td class="pdu-metering-status-panel-header-left" style="background: white; border:0; color:black; padding-left: 15px; padding-top: 15px;">
+								<div style="margin-left: 12px; font-weight: normal">
+									<span style="font-size: 20px;">Event Logs&nbsp;&nbsp; </span>
+									<span style="font-size=10px;">( <span style="color: red;">{{eventCounter}}</span> - active ) <!--- <span style="color: orange;">2</span> warning )</span>-->
+								</div>
+							</td>
+							<td class="pdu-metering-status-panel-header-right" style="background: white; border:0; padding-right: 15px; padding-left: 15px; color:black;">									
+								<div>
+									<span class="container">
+									  <ul class="list-inline">    
+										<li>
+											
+											 <pop-over-directive></pop-over-directive>
+											
+											<div class="hidden" id="popOverContentId">
+											
+											  <div class="popover-heading">
+												Apply Filter
+											  </div>
+
+											  <div class="popover-body" style="margin-top: 20px">
+												<ul class="pop-over-ul">
+												  <li>
+													<input type="checkbox" name="chkBox" class="shadow ng-pristine ng-untouched ng-valid ng-empty" ng-model="active" style="">
+													<label class="pop-over-label">Active</label>
+												  </li>
+												  <li>
+													<input type="checkbox" name="chkBox" class="shadow ng-pristine ng-untouched ng-valid ng-empty" ng-model="alarm" style="">
+													<label class="pop-over-label">Alarm</label>
+												  </li>
+												  <li>
+													<input type="checkbox" name="chkBox" class="shadow ng-pristine ng-untouched ng-valid ng-empty" ng-model="warn" style=""> 
+													<label class="pop-over-label">Warning </label>
+												  </li>
+												  <li>
+													<input type="checkbox" name="chkBox" class="shadow ng-pristine ng-untouched ng-valid ng-empty" ng-model="info" style=""> 
+													<label class="pop-over-label">Info</label>
+												  </li>
+												  <li>
+													<input type="checkbox" name="chkBox" class="shadow ng-pristine ng-untouched ng-valid ng-empty" ng-model="reqack" style="">
+													<label class="pop-over-label">Require Ack </label>
+												  </li>
+												  <li><input type="checkbox" name="chkBox" class="shadow ng-pristine ng-untouched ng-valid ng-empty" ng-model="waveform" style="">
+													<label class="pop-over-label">Has Waveform</label>
+												  </li>
+												</ul>
+												
+												<ul class="pop-over-ul" style="margin-top: 10px">	
+													<li>													
+														<input type="checkbox" name="chkBox" ng-model="calender" ng-click="toggleCalendar($event)">
+														<label class="pop-over-label" style="font-weight: bold;">
+															Calendar 
+														</label> 
+													</li>							
+													<li>
+														<div>
+														   <label>From</label>
+															<div id="datetimepicker1">									 
+																<input id="fromCalendarId" max="2020-12-31" min="1900-01-02" type="date" ng-model="calenderFrom" data-date-format="DD MMMM YYYY" style="width: 150px;" disabled> 										
+															</div>
+														</div>
+													</li>
+													<li>													
+														<div>
+															<label>To</label>
+															<div id="datetimepicker5">
+																<input id="toCalendarId" max="2020-12-31" min="1900-01-02" type="date" ng-model="calenderTo" style="width: 150px;" disabled>											
+															</div>
+														</div>
+													</li>								
+												</ul>
+												
+												<div class="clearfix save-discard-container-event">												
+													<button class="button-grp-event-cancel" ng-click="hidePopover();">Cancel</button>
+													<button class="button-grp-event-apply" ng-click="allEventsView()">Apply</button>
+												</div>
+												
+											  </div>
+											</div>
+										</li>
+										<li>
+											<span style="color: #d2d2d2;">{{customDateShort}} {{time}} {{Meridiem}}</span>
+										</li>
+									  </ul>
+									</span>																
+								</div>									
+							</td>
+						</tr>
+					</table>
+					<table class="table table-bordered table-responsive events-table">
+						<thead class="tableheaders">
+							<tr style="background-color: #fff;">
+								<th style="text-align: center;width: 100px;">CATEGORY</th>
+								<th style="text-align: center;width: 100px;">STATUS</th>
+								<th style="width: 250px; padding-left:20px;">TIME</th>
+								<th style="padding-left:20px;">DESCRIPTION</th>		
+							</tr>
+						</thead>
+						<tbody class="tbody-custom">				   
+							<tr ng-repeat="value in values">
+							   <td class={{value.colorFilterType}} style="text-align: center; width: 75px;"><img src="./images/icons/status/{{value.StatusIcon}}.png" width="24" height="24" /></td>
+							   <td style="text-align: center;width: 75px;" ng-if="value.Active=='Y'">Active</td>						
+								<td style="text-align: center;width: 75px;" ng-if="value.Active!='Y'"></td>
+								<td style="width: 250px; padding-left:20px;">{{value.time}}</td>
+								<td style="padding-left:20px;">{{value.desc}}</td>							
+							</tr>
+						</tbody>
+					</table>
+					<div class="pagination-align" ng-show="values.length" style="text-align: center;">
+						<ul class="pagination list-inline">
+							<li>
+								<button type="button" class="btn event-previous-next" ng-disabled="curPage == 0" ng-click="prevEvent()"> &lt;</button>
+							</li>
+						</ul>
+						<ul class=" pagination  list-unstyled list-inline" style="vertical-align: middle;">
+							<li class="pagingation-font-style"> <span class="ng-binding"> {{currentPage}}  of {{totalPages}} pages</span> </li>
+						</ul>
+						<ul class="pagination list-inline">
+							<li>
+								<button type="button" class="btn event-previous-next" ng-disabled="curPage >= TotalEvent/pageSize - 1" ng-click="nextEvent()">&gt;</button>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>

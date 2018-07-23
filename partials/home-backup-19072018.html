@@ -1,0 +1,48 @@
+<div ng-controller="HomeController">	
+	<div class="header-layout clearfix"  style="border: #d8d8d8 1px solid; background: white; box-shadow: 0px 2px 5px #d8d8d8;">  
+		{{titleHeader}}
+	</div>
+	<div class="card-layout" ng-if="deviceAvailable">		
+		<div class="card" ng-repeat="deviceStatus in deviceStatusAll" ng-click="singleDeviceSelect($event, $index)">	
+			<table class="table box-shadow">
+				<tbody>
+					<tr class="card-header">
+						<td class="device-type-left">
+							<div>
+								{{deviceStatus.Type}}
+							</div>
+						</td>
+						<td class="device-id-right">
+							<div class="deviceIdRight">
+								{{deviceStatus.Id}}
+							</div>
+						</td>
+					</tr>
+					<tr class="card-content">
+						<td class="loadPercentLeft">
+							<div>{{deviceStatus["load%"]}}%</div>								
+						</td>
+						<td class="statusIconRight">
+							<div>
+								<div>
+									<a href="#/home"><img src="./images/icons/status/{{deviceStatus.devciestatus}}.png" /></a>
+								</div>
+								<br />
+								<div>
+									<a href="#/home"><img src="./images/icons/{{deviceStatus.Active}}.png" /></a>
+								</div>		
+							</div>	
+						</td>
+					</tr>
+				</tbody>				
+			</table>
+		</div>						
+	</div>
+	<div class="card-layout" ng-if="deviceStatusAll.length==0" style="text-align: center;">
+		No Device Connected
+	</div>	
+	<div class="card-layout" ng-if="networkFailure==true" style="text-align: center;color:red;">
+		Network Failure
+	</div>	
+	
+</div>

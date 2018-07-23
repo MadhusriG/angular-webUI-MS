@@ -1,0 +1,313 @@
+<div ng-controller="PduMeteringHomeController">
+
+	<div class="container-fluid">
+		<table class="table pdu-home-table" style="margin-bottom: 0;">
+			<tbody>
+				<tr>	
+					<td class="pdu-home-row1 pdu-home-col1">
+						<div class="pdu-metering-home-status-panel">	
+							<table class="table pdu-metering-home-status-panel-table">
+								<tbody>
+									<tr class="pdu-metering-home-status-panel-header">
+										<td class="pdu-metering-home-status-panel-header-left" style="background:#222222; border:0">
+											<div>
+												Input
+											</div>
+										</td>
+										<td class="pdu-metering-home-status-panel-header-right" style="background:#222222; border:0">
+											<a class="fa fa-arrow-circle-o-right fa-lg" style="color: white;" aria-hidden="true" href="#/pdumeteringmeters"></a>
+										</td>
+									</tr>
+									<tr>
+										<td class="pdu-metering-home-status-panel-content" colspan="2" style="background:#222222; border:0;">
+											<div style="padding-bottom: 5px;">								
+												<table style="width: 100%; background:#222222; margin-bottom: 10px;" class="table">
+													<tr>
+														<td class="col-xs-3">
+														</td>
+														<td class="col-xs-6" style="text-align: center;">
+															<a href="#/pdumeteringhome">
+																<img src="./images/icons/status/WarningTriangle.png" width="16" height="16" />
+															</a>
+														</td>
+														<td class="col-xs-3">
+														</td>
+													</tr>
+												</table>
+											</div>
+											<div>
+												<canvas id="pduBar1" ng-if="showBar" width="100px" height="100px" class="chart chart-bar mini-chart-container mini-canvas" chart-options="optionsBar1" chart-data="dataIn" chart-labels="labelsIn" chart-colors="colors" chart-series="series"></canvas> 										
+											</div>
+											<div style="padding-top: 5px; height: 50px;">								
+												<div class="outer-border-container" style="text-align:center; font-family: HelveticaNeueETPro-Light;">
+													<span class="inner-border-container">
+													  <div style="position: relative; top: -5px;">
+														NO VOLTAGE
+													  </div>
+													</span>
+												</div>																							
+											</div>
+											<div>								
+												<table style="background:#222222; margin-bottom:0;" class="table">
+													<tr>
+														<td class="col-xs-3" style="font-family: HelveticaNeueETPro-Light; color: #858585; padding-left: 10px;">
+															f
+														</td>
+														<td class="col-xs-6" style="text-align: center;">
+															{{phase.Frequency}}
+														</td>
+														<td class="col-xs-3" style="font-family: HelveticaNeueETPro-Light;padding-right: 20px; float: right; color: #858585;">
+															Hz
+														</td>
+													</tr>
+												</table>
+											</div>
+										</td>
+									</tr>
+								</tbody>				
+							</table>
+						</div>
+					</td>
+					
+					<td class="pdu-home-row1 pdu-home-col2">
+						<div class="pdu-metering-home-status-panel">	
+							<table class="table pdu-metering-home-status-panel-table">
+								<tbody>
+									<tr class="pdu-metering-home-status-panel-header">
+										<td class="pdu-metering-home-status-panel-header-left" style="background:#262626; border:0">
+											<div>
+												Mimic Diagram
+											</div>
+										</td>
+										<td class="pdu-metering-home-status-panel-header-right" style="background:#262626; border:0">
+										</td>
+									</tr>
+									<tr id="mimicDiagramId">
+										<td class="pdu-metering-home-status-panel-content" colspan="2" style="background:#262626; border:0; text-align: center;">
+												<img class="pdu-home-row1 pdu-home-col2" src="./images/mimic.svg" />
+										</td>
+									</tr>
+								</tbody>				
+							</table>
+						</div>
+					</td>
+					
+					<td class="pdu-home-row1 pdu-home-col3">
+						<div class="pdu-metering-home-status-panel">	
+							<table class="table pdu-metering-home-status-panel-table">
+								<tbody>
+									<tr class="pdu-metering-home-status-panel-header">
+										<td class="pdu-metering-home-status-panel-header-left" style="background:#222222; border:0">
+											<div>
+												Output
+											</div>
+										</td>
+										<td class="pdu-metering-home-status-panel-header-right" style="background:#222222; border:0">
+											<a class="fa fa-arrow-circle-o-right fa-lg" style="color: white;" aria-hidden="true" href="#/pdumeteringmeters"></a>
+										</td>
+									</tr>
+									<tr>
+										<td class="pdu-metering-home-status-panel-content" colspan="2" style="background:#222222; border:0; width: 200px;">
+											<div style="padding-bottom: 5px;">								
+												<table style="width: 100%; background:#222222; margin-bottom: 10px;" class="table">
+													<tr>
+														<td class="col-xs-3">
+														</td>
+														<td class="col-xs-6" style="text-align: center;">
+															<a href="#/pdumeteringhome">
+																<img src="./images/icons/status/WarningTriangle.png" width="16" height="16" />
+															</a>
+														</td>
+														<td class="col-xs-3">
+														</td>
+													</tr>
+												</table>
+											</div>
+											<div>
+												<canvas id="pduBar2" ng-if="showBar" width="100px" height="100px" class="chart chart-bar mini-chart-container mini-canvas" chart-options="optionsBar2" chart-data="dataOut" chart-labels="labelsOut" chart-colors="colors" chart-series="series"></canvas> 										
+											</div>
+											<div style="padding-top: 5px; height: 50px;">																																									
+												<div class="outer-border-container" style="text-align:center; font-family: HelveticaNeueETPro-Light;">
+													<span class="inner-border-container">
+													  <div style="position: relative; top: -5px;">
+														NO VOLTAGE
+													  </div>
+													</span>
+												</div>																							
+											</div>
+											<div>								
+												<table style="background:#222222; margin-bottom:0;" class="table">
+													<tr>
+														<td class="col-xs-3" style="font-family: HelveticaNeueETPro-Light; color: #858585; padding-left: 10px;">
+															f
+														</td>
+														<td class="col-xs-6" style="text-align: center;">
+															{{phase.Frequency}}
+														</td>
+														<td class="col-xs-3" style="font-family: HelveticaNeueETPro-Light;padding-right: 20px; float: right; color: #858585;">
+															Hz
+														</td>
+													</tr>
+												</table>
+											</div>
+										</td>
+									</tr>
+								</tbody>				
+							</table>
+						</div>
+					</td>			
+
+				</tr>
+				<tr>	
+					<td class="pdu-home-row2 pdu-home-col1">
+						<div class="pdu-metering-home-status-panel">	
+							<table class="table pdu-metering-home-status-panel-table">
+								<tbody>
+									<tr class="pdu-metering-home-status-panel-header">
+										<td class="pdu-metering-home-status-panel-header-left" style="background:#222222; border:0">
+											<div>
+												Load
+											</div>
+										</td>
+										<td class="pdu-metering-home-status-panel-header-right" style="background:#222222; border:0">
+											<a class="fa fa-arrow-circle-o-right fa-lg" style="color: white;" aria-hidden="true" href="#/pdumeteringmeters"></a>
+										</td>
+									</tr>
+									<tr>						
+										<td class="pdu-metering-home-status-panel-content" colspan="2" style="background:#222222; border:0;">
+											<div style="margin-top: calc(1vh);">
+												<canvas ng-if="showPie" width="90px" height="90px" id="pduPieChart" class="chart chart-doughnut mini-canvas" chart-options="optionspie" chart-data="datapie" chart-labels="labelspie" chart-colors="colorspie"></canvas> 													
+											</div>	
+											<div style="background:#222222; color: #858585; margin-top: -5px; margin-bottom: 5%;width: 100%;text-align: center;" class="table">								
+												<table style="/* width: 100%; */margin-bottom: 0px;display: inline-block;">
+													<tbody><tr>														
+														<td class="col-xs-1" style="font-family: HelveticaNeueETPro-Light;/* float:right; */font-size: 10px;/* padding-left: 20%; */">
+															0
+														</td>
+														<td class="col-xs-12" style="font-family: HelveticaNeueETPro-Light;font-size: 10px;/* padding-right: 10px; */float: right;">
+															100
+														</td>
+													</tr>
+												</tbody></table>
+											</div>									
+											<div style="background:#222222;margin-bottom: 0px;" class="table">								
+												<table style="width: 100%; margin-bottom: 0px;">
+													<tr>
+														<td style="text-align: center; font-family: HelveticaNeueETPro-Light; color: #858585;">
+															Load Power
+														</td>
+													</tr>
+												</table>
+											</div>
+										</td>
+									</tr>
+								</tbody>				
+							</table>
+						</div>
+					</td>
+					
+					<td class="pdu-home-row2 pdu-home-col2">
+						<div class="pdu-metering-home-status-panel">	
+							<table class="table pdu-metering-home-status-panel-table">
+								<tbody>
+									<tr class="pdu-metering-home-status-panel-header">
+										<td class="pdu-metering-home-status-panel-header-left" style="background:#1e1e1e; border:0">
+											<div>
+												CB Status
+											</div>
+										</td>
+										<td class="pdu-metering-home-status-panel-header-right" style="background:#1e1e1e; border:0">
+										</td>
+									</tr>
+									<tr>					
+										<td class="pdu-metering-home-status-panel-content" colspan="2" style="background:#1e1e1e; border:0; height: 146px;">
+										</td>
+									</tr>
+								</tbody>				
+							</table>
+						</div>
+					</td>
+					
+					<td class="pdu-home-row2 pdu-home-col3">
+						<div class="pdu-metering-home-status-panel">	
+							<table class="table pdu-metering-home-status-panel-table">
+								<tbody>
+									<tr class="pdu-metering-home-status-panel-header">
+										<td class="pdu-metering-home-status-panel-header-left" style="background:#222222; border:0">
+											<div>
+												Energy
+											</div>
+										</td>
+										<td class="pdu-metering-home-status-panel-header-right" style="background:#222222; border:0">
+											<a class="fa fa-arrow-circle-o-right fa-lg" style="color: white;" aria-hidden="true" href="#/pdumeteringmeters"></a>
+										</td>
+									</tr>
+									<tr>		
+										<td class="pdu-metering-home-status-panel-content" colspan="2" style="background:#222222; border:0; text-align: center; text-align: center; height: 146px;">
+										
+												<div style="background:#222222;margin-bottom: 0px; margin-top: calc(3vh);" class="table">								
+												<table style="width: 100%; margin-bottom: 0px;">
+													<tr>
+														<td style="text-align: center; font-size: 30px; ">
+															{{energy.kWh.Total}}
+														</td>
+													</tr>
+												</table>
+											</div>
+											
+										</td>			
+									</tr>
+								</tbody>				
+							</table>
+						</div>	
+					</td>		
+					
+				</tr>
+				<tr>
+					<td colspan="3" class="pdu-home-row3">
+						<div class="pdu-metering-home-status-panel">	
+							<table class="table pdu-metering-home-status-panel-table"  style="margin-bottom: 0;border: #858585 0px solid;">
+								<tbody>
+									<tr class="pdu-metering-home-status-panel-header">
+										<td class="pdu-metering-home-status-panel-header-left" style="background: #222222; border:0">
+											<div style="margin-left: 12px; font-weight: bold">
+												Active Alarms&nbsp;&nbsp; 
+												( <span>{{eventCounter}}</span> - <span>active</span> )												
+											</div>
+										</td>
+										<td class="pdu-metering-home-status-panel-header-right" style="background: #222222; border:0; padding-right: 15px;">	
+										
+										</td>
+									</tr>
+									<tr>		
+										<td colspan="2" style="background: #222222; border:0; padding-left: 20px; padding-right: 20px;">
+											<table class="table active-events-table" style="background: #222222;">
+												<thead>
+												  <tr>
+													<th>CATEGORY</th>
+													<th>TIME</th>
+													<th>DESCRIPTION</th>
+												  </tr>
+												</thead>
+												<tbody>
+												  <tr ng-show='eventRows' ng-repeat="value in values| reverse">											
+													<td class={{value.colorFilterType}} style="text-align: center; width: 100px;">
+														<img src="./images/icons/status/{{value.StatusIcon}}.png" width="24" height="24" />
+													</td>
+													<td>{{value.time}}</td>
+													<td>{{value.desc}}</td>
+												  </tr>
+												</tbody>
+											 </table>
+										</td>			
+									</tr>
+								</tbody>				
+							</table>
+						</div>
+					</td>
+					
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

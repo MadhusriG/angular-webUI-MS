@@ -1,0 +1,243 @@
+<div ng-controller="BcmMetersBranchViewController">
+	
+	<!-- Panel Number Selection -->
+	<div class="clearfix panel-service">
+		<div class="card-layout-bcm-meters clearfix box-shadow">			
+			<table class="table" style="margin-bottom: 0;border: 0">
+				<tbody>		
+					<tr>
+						<td class="col-xs-3 bcm-meters-paneltable-content">
+							Panel Number
+						</td>	
+						<td class="bcm-meters-paneltable-content">
+							<select ng-model="selectedPanel" ng-options="panelNumber for panelNumber in panelNumbers" ng-change="panelChanged(selectedPanel);" style="width:50px">								
+							</select>								
+						</td>
+						<td>
+							<div style="padding-right: 10px; text-align: right;" ng-if="branchMeterDetailsView" ng-click="toggleMeterSettingsView();"><img width="24" height="24" src="./images/icons/nav/UI_Settings_24.png" /></div>
+							<div style="padding-right: 10px; text-align: right;" ng-if="!branchMeterDetailsView" ng-click="toggleMeterSettingsView();"><img width="24" height="24" src="./images/icons/nav/UI_Meters_24.png" /></div>
+						</td>
+					</tr>
+			</table>
+		</div>
+	</div>
+		
+	<div class="clearfix panel-service">
+		<!-- Branch Meters Details View -->
+		<div class="card-layout-bcm-meters clearfix box-shadow" ng-if="branchMeterDetailsView">			
+			<table class="table">				
+				<caption>Branch Meter Details</caption>
+				<tbody>		
+					<tr>
+						<td class="col-xs-4 pdu-metering-thermal-panel-header bcm-meters-configuration-content">
+							<div>
+								CB Number
+							</div>
+						</td>	
+						<td class="col-xs-4 pdu-metering-thermal-panel-header bcm-meters-configuration-content">
+							<div>
+								{{selectedMeterNumberBcmMeters}}
+							</div>
+						</td>
+						<td class="col-xs-4 pdu-metering-thermal-panel-header bcm-meters-configuration-content">
+							<div style="float:left">{{branchDetailsCurrent.State}}</div>
+							<img src="./images/icons/status/{{branchDetailsCurrent.Status}}.png" style="float:right;width: 30px;">
+						</td>	
+					</tr>
+					
+					<!-- Current -->
+					<tr  class="pdu-metering-output-table-row">
+						<td class="col-xs-4 pdu-metering-output-table-content pdu-settings-limits-content" rowspan="3">
+							Current (A)
+						</td>
+						<td class="col-xs-4 pdu-metering-output-table-content bcm-meters-configuration-content">
+							Max							
+						</td>						
+						<td class="col-xs-4 pdu-metering-output-table-content bcm-meters-configuration-content">
+							{{branchDetailsCurrent.Max}}
+						</td>
+					</tr>
+					<tr  class="pdu-metering-output-table-row">						
+						
+						<td class="col-xs-4 pdu-metering-output-table-content bcm-meters-configuration-content">
+							Present
+						</td>						
+						<td class="col-xs-4 pdu-metering-output-table-content bcm-meters-configuration-content">
+							{{branchDetailsCurrent.Present}}
+						</td>
+						
+					</tr>
+					<tr  class="pdu-metering-output-table-row">						
+						
+						<td class="col-xs-4 pdu-metering-output-table-content bcm-meters-configuration-content">
+							Min
+						</td>						
+						<td class="col-xs-4 pdu-metering-output-table-content bcm-meters-configuration-content">
+							{{branchDetailsCurrent.Min}}
+						</td>
+						
+					</tr>
+					
+					<!-- Power -->					
+					<tr  class="pdu-metering-output-table-row">						
+						<td class="col-xs-4 pdu-metering-output-table-content pdu-settings-limits-content" rowspan="6">
+							Power
+						</td>
+						<td class="col-xs-4 pdu-metering-output-table-content bcm-meters-configuration-content">
+							Load %
+						</td>						
+						<td class="col-xs-4 pdu-metering-output-table-content bcm-meters-configuration-content">
+							{{branchDetailsPower.Load}}
+						</td>
+						
+					</tr>
+					<tr  class="pdu-metering-output-table-row">						
+						
+						<td class="col-xs-4 pdu-metering-output-table-content bcm-meters-configuration-content">
+							Power (kW)
+						</td>						
+						<td class="col-xs-4 pdu-metering-output-table-content bcm-meters-configuration-content">
+							{{branchDetailsPower.kW}}
+						</td>
+						
+					</tr>
+					<tr  class="pdu-metering-output-table-row">						
+						
+						<td class="col-xs-4 pdu-metering-output-table-content bcm-meters-configuration-content">
+							Power (kVA)
+						</td>						
+						<td class="col-xs-4 pdu-metering-output-table-content bcm-meters-configuration-content">
+							{{branchDetailsPower.kVA}}
+						</td>
+						
+					</tr>
+					<tr  class="pdu-metering-output-table-row">						
+						
+						<td class="col-xs-4 pdu-metering-output-table-content bcm-meters-configuration-content">
+							Energy (kWh)
+						</td>						
+						<td class="col-xs-4 pdu-metering-output-table-content bcm-meters-configuration-content">
+							{{branchDetailsPower.kWh}}
+						</td>
+						
+					</tr>
+					<tr  class="pdu-metering-output-table-row">						
+						
+						<td class="col-xs-4 pdu-metering-output-table-content bcm-meters-configuration-content">
+							PF
+						</td>						
+						<td class="col-xs-4 pdu-metering-output-table-content bcm-meters-configuration-content">
+							{{branchDetailsPower.PF}}
+						</td>
+						
+					</tr>
+					<tr  class="pdu-metering-output-table-row">						
+						<td class="col-xs-4 pdu-metering-output-table-content bcm-meters-configuration-content">
+							Demand
+						</td>						
+						<td class="col-xs-4 pdu-metering-output-table-content bcm-meters-configuration-content">
+							{{branchDetailsPower.MD}}
+						</td>
+					</tr>
+					
+				</tbody>				
+			</table>
+		</div>		
+		
+		<!-- Branch Settings View -->
+		<div class="card-layout-bcm-meters clearfix box-shadow" ng-if="!branchMeterDetailsView">
+			<div class="card-layout-bcm-meters clearfix box-shadow">
+
+				<div class="clearfix save-discard-container"  ng-if="editMode" style="position: static;">
+					<button class="pull-right boxbackground button-grp-1" ng-click="saveChanges()"><span class="glyphicon glyphicon-ok"></span> &nbsp; Save</button>
+					<button class="pull-right boxbackground button-grp" ng-click="discardChanges()"><span class="glyphicon glyphicon-remove"></span> &nbsp; Discard Changes</button>
+				</div>
+				
+				<table class="table" style="margin-bottom: 0;border: 0">
+					<caption>Branch Settings Details</caption>
+					<tbody>		
+						<tr>
+							<td class="col-xs-3 bcm-meters-panel-table-content">
+								Status
+							</td>	
+							<td class="bcm-meters-panel-table-content">
+								<input type="checkbox" ng-model="branchInfo.State.OnOff" ng-change="editModeFeatureState();" bootstrap-switch/>
+							</td>
+						</tr>
+						<tr>
+							<td class="col-xs-3 bcm-meters-panel-table-content">
+								Rating 
+							</td>	
+							<td class="bcm-meters-panel-table-content">
+								<span editable-number="branchInfo.State.Rating" e-step="10" e-max="200" e-min="10" e-inputgroupright="Min:10 Max:200" onaftersave="editModeFeatureValue($data,'State', 'Rating');" class="ng-scope ng-binding editable editable-click">{{branchInfo.State.Rating}}</span> A
+							</td>
+						</tr>
+				</table>
+			</div>
+			<div class="card-layout-bcm-meters clearfix box-shadow">
+				<table class="table" style="margin-bottom: 0;border: #d8d8d8 1px solid;">
+					<tbody>		
+						<tr>
+							<td class="col-xs-4 pdu-metering-thermal-panel-header bcm-meters-configuration-content td-center-align">
+								PARAMETER
+							</td>	
+							<td class="col-xs-4 pdu-metering-thermal-panel-header bcm-meters-configuration-content td-center-align">
+								ALARM							
+							</td>
+							<td class="col-xs-4 pdu-metering-thermal-panel-header bcm-meters-configuration-content td-center-align">
+								Warning
+							</td>	
+						</tr>
+						<tr  class="pdu-metering-output-table-row">
+							<td class="col-xs-2 pdu-metering-output-table-content pdu-settings-limits-content td-center-align">
+								Over Current Limit (%)
+							</td>
+							<td class="pdu-metering-output-table-content bcm-meters-configuration-content td-center-align">								
+								<span editable-number="branchInfo.Alarm.OverCurrent" e-step="5" e-max="200" e-min="10" e-inputgroupright="Min:10 Max:200" onaftersave="editModeFeatureValue($data,'Alarm', 'OverCurrent');" class="ng-scope ng-binding editable editable-click">{{branchInfo.Alarm.OverCurrent}}</span>
+							</td>						
+							<td class="pdu-metering-output-table-content bcm-meters-configuration-content td-center-align">							
+								<span editable-number="branchInfo.Warning.OverCurrent" e-step="5" e-max="200" e-min="10" e-inputgroupright="Min:10 Max:200" onaftersave="editModeFeatureValue($data,'Warning', 'OverCurrent');" class="ng-scope ng-binding editable editable-click">{{branchInfo.Warning.OverCurrent}}</span>
+							</td>
+						</tr>
+						<tr  class="pdu-metering-output-table-row">
+							<td class="col-xs-2 pdu-metering-output-table-content pdu-settings-limits-content td-center-align">
+								Under Current Limit (%)
+							</td>
+							<td class="pdu-metering-output-table-content bcm-meters-configuration-content td-center-align">								
+								<span editable-number="branchInfo.Alarm.UnderCurrent" e-step="1" e-max="100" e-min="0" e-inputgroupright="Min:10 Max:200" onaftersave="editModeFeatureValue($data,'Alarm', 'UnderCurrent');" class="ng-scope ng-binding editable editable-click">{{branchInfo.Alarm.UnderCurrent}}</span>
+							</td>						
+							<td class="pdu-metering-output-table-content bcm-meters-configuration-content td-center-align">
+								{{}}
+							</td>
+						</tr>
+						<tr  class="pdu-metering-output-table-row">
+							<td class="col-xs-2 pdu-metering-output-table-content pdu-settings-limits-content td-center-align">
+								Delay (S)
+							</td>
+							<td class="pdu-metering-output-table-content bcm-meters-configuration-content td-center-align">								
+								<span editable-number="branchInfo.Alarm.Delay" e-step="1" e-max="100" e-min="0" e-inputgroupright="Min:10 Max:100" onaftersave="editModeFeatureValue($data,'Alarm', 'Delay');" class="ng-scope ng-binding editable editable-click">{{branchInfo.Alarm.Delay}}</span>
+							</td>						
+							<td class="pdu-metering-output-table-content bcm-meters-configuration-content td-center-align">
+								<span editable-number="branchInfo.Warning.Delay" e-step="1" e-max="100" e-min="0" e-inputgroupright="Min:10 Max:100" onaftersave="editModeFeatureValue($data,'Warning', 'Delay');" class="ng-scope ng-binding editable editable-click">{{branchInfo.Warning.Delay}}</span>
+							</td>
+						</tr>
+									
+					</tbody>				
+				</table>
+			</div>			
+		</div>
+		
+		<div class="card-layout-bcm-meters clearfix">
+			<ul class="pagination pagination-bcm">
+				<li ng-click="firstNavigationList($event);"><a href="#/bcmmetersbranchview"><<</a></li>
+				<li ng-click="prevNavigationList($event);"><a href="#/bcmmetersbranchview"><</a></li>
+				<li class="{{paginationNumber.className}}" ng-repeat="paginationNumber in paginationNumbersBcmMeters" ng-click="paginationNavigation($event, $index);">
+					<a ng-if='paginationNumber.number<10' href="#/bcmmetersbranchview">0{{paginationNumber.number}}</a>
+					<a ng-if='paginationNumber.number>9' href="#/bcmmetersbranchview">{{paginationNumber.number}}</a>
+				</li>
+				<li ng-click="nextNavigationList();"><a href="#/bcmmetersbranchview">></a></li>
+				<li ng-click="lastNavigationList();"><a href="#/bcmmetersbranchview">>></a></li>
+			</ul>
+		</div>
+	</div>
+</div>

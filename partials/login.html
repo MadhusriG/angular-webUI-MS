@@ -1,0 +1,73 @@
+<div ng-controller="LoginController" class="login">
+<div class="col-md-6" style="background-color: #f5f5f5; margin-top: 10%; margin-left: 25%;">
+  <div class="col-md-6 col-md-offset-3" style="margin-bottom: 5%;">
+      <div class="text-center" ><img src="images/icons/UI_UserLogin_24.png" style="margin: 15% 15%;"></div>
+      <form>
+        <div class="form-group">
+          <input type="text" class="form-control" id="inputUserId" placeholder="Username">
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" id="inputPasswordId" placeholder="Password">
+        </div>
+        <div class="form-group mb25" >          
+            <a class="change-password-link" ng-click="changePasswordScreenOpen();">Change Password</a>
+        </div>
+        <div class="form-group">
+          <a class="btn btn-primary btn-block" ng-click="AuthCategory();">Login</a>
+        </div>
+        <div class="validation">        	       
+        </div>
+      </form>
+  </div>
+  <div class="clearfix"></div>
+</div>
+<div class="overlay-block" ng-if="isChangePassword">
+	<div class="col-md-4 change-password-component">
+      <div class="text-center" ><img src="images/icons/UI_UserLogin_24.png" style="margin: 5% 5%;"></div>
+	  <label class="change-password-header">Change Password</label>
+      
+	  <!--
+		<form>
+			<div class="form-group">
+			  <input type="password" id="inputOldPasswordId" placeholder="Old Password">
+			</div>
+			<div class="form-group">
+			  <input type="password" id="inputNewPasswordId" placeholder="New Password">
+			</div>
+			<div class="form-group mb25" >          
+				<input type="password" id="inputConfirmPasswordId" placeholder="Confirm Password">
+			</div>
+			<div class="form-group">
+			  <a class="btn btn-primary btn-block" ng-click="changePasswordScreenClose();">Save</a>
+			</div>
+		</form>
+		-->
+		
+		<table class="table">
+			<tbody>
+				<tr>
+					<td class="custom-form-align">
+						<input class="change-password-text" type="password" id="inputOldPasswordId" placeholder="Old Password">
+					</td>
+				</tr>
+				<tr>
+					<td class="custom-form-align">
+						<input class="change-password-text" type="password" id="inputNewPasswordId" placeholder="New Password">
+					</td>
+				</tr>		
+				<tr>
+					<td class="custom-form-align">
+						<input class="change-password-text" type="password" id="inputConfirmPasswordId" placeholder="Confirm Password">
+					</td>
+				</tr>
+				<tr>
+					<td class="custom-form-align">
+						<a class="btn btn-primary" style="width:50%" ng-click="changePasswordScreenClose();">Save</a>
+					</td>
+				</tr>					
+			</tbody>
+		</table>
+		
+      </div>
+  </div>
+</div>
