@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.4, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="408px" height="316px" viewBox="0 0 408 316" enable-background="new 0 0 408 316" xml:space="preserve">
+<rect fill="none" width="408" height="316"/>
+<polyline fill="none" stroke="#626262" stroke-width="2" stroke-miterlimit="10" points="204,214.913 204,265.413 146.252,265.413
+	146.252,66.819 "/>
+<line fill="none" stroke="#626262" stroke-width="2" stroke-miterlimit="10" x1="103.983" y1="66.067" x2="188.521" y2="66.067"/>
+<line fill="none" stroke="#626262" stroke-width="2" stroke-miterlimit="10" x1="304.016" y1="66.067" x2="219.479" y2="66.067"/>
+<g>
+	
+		<circle id="input_circle_2_" fill="none" stroke="#626262" stroke-width="1.548" stroke-miterlimit="10" cx="88.504" cy="66.067" r="15.479"/>
+	<g id="input_grid_2_">
+		<g>
+			<defs>
+				<rect id="SVGID_1_" x="82.376" y="57.516" width="12.256" height="17.103"/>
+			</defs>
+			<clipPath id="SVGID_2_">
+				<use xlink:href="#SVGID_1_"  overflow="visible"/>
+			</clipPath>
+			<polyline clip-path="url(#SVGID_2_)" fill="none" stroke="#D2D2D2" stroke-width="0.6445" stroke-miterlimit="10" points="
+				85.44,74.478 88.504,59.159 91.567,74.478 			"/>
+			
+				<line clip-path="url(#SVGID_2_)" fill="none" stroke="#D2D2D2" stroke-width="0.6445" stroke-miterlimit="10" x1="82.376" y1="63.585" x2="94.632" y2="63.585"/>
+			
+				<line clip-path="url(#SVGID_2_)" fill="none" stroke="#D2D2D2" stroke-width="0.3222" stroke-miterlimit="10" x1="85.44" y1="74.478" x2="90.946" y2="71.369"/>
+		</g>
+		
+			<line fill="none" stroke="#D2D2D2" stroke-width="0.3222" stroke-miterlimit="10" x1="90.946" y1="71.369" x2="86.593" y2="68.718"/>
+		
+			<line fill="none" stroke="#D2D2D2" stroke-width="0.3222" stroke-miterlimit="10" x1="86.593" y1="68.717" x2="90.206" y2="66.819"/>
+		
+			<line fill="none" stroke="#D2D2D2" stroke-width="0.3222" stroke-miterlimit="10" x1="90.206" y1="66.819" x2="87.482" y2="64.266"/>
+		<g>
+			<defs>
+				<rect id="SVGID_3_" x="82.376" y="57.516" width="12.256" height="17.103"/>
+			</defs>
+			<clipPath id="SVGID_4_">
+				<use xlink:href="#SVGID_3_"  overflow="visible"/>
+			</clipPath>
+			
+				<line clip-path="url(#SVGID_4_)" fill="none" stroke="#D2D2D2" stroke-width="0.3222" stroke-miterlimit="10" x1="91.656" y1="74.478" x2="86.151" y2="71.369"/>
+		</g>
+		
+			<line fill="none" stroke="#D2D2D2" stroke-width="0.3222" stroke-miterlimit="10" x1="86.151" y1="71.369" x2="90.504" y2="68.718"/>
+		
+			<line fill="none" stroke="#D2D2D2" stroke-width="0.3222" stroke-miterlimit="10" x1="90.504" y1="68.717" x2="86.89" y2="66.819"/>
+		
+			<line fill="none" stroke="#D2D2D2" stroke-width="0.3222" stroke-miterlimit="10" x1="86.89" y1="66.819" x2="89.614" y2="64.266"/>
+	</g>
+</g>
+<g>
+	
+		<circle id="output_circle_2_" fill="none" stroke="#626262" stroke-width="1.548" stroke-miterlimit="10" cx="319.496" cy="66.067" r="15.48"/>
+	<polygon id="factory_2_" fill="none" stroke="#D2D2D2" stroke-width="0.645" stroke-miterlimit="10" points="311.756,71.872 
+		327.235,71.872 327.235,60.262 323.366,64.132 323.366,60.262 319.495,64.132 319.495,60.262 315.626,64.132 315.626,60.262 
+		311.756,64.132 	"/>
+</g>
+<g id="injector">
+	<path fill="none" stroke="#D2D2D2" stroke-width="0.645" stroke-miterlimit="10" d="M192.854,60.598
+		c0,1.538,1.248,2.786,2.786,2.786c1.539,0,2.786-1.248,2.786-2.786"/>
+	<path fill="none" stroke="#D2D2D2" stroke-width="0.645" stroke-miterlimit="10" d="M198.427,60.598
+		c0,1.538,1.248,2.786,2.787,2.786S204,62.136,204,60.598"/>
+	<path fill="none" stroke="#D2D2D2" stroke-width="0.645" stroke-miterlimit="10" d="M204,60.598c0,1.538,1.247,2.786,2.786,2.786
+		s2.786-1.248,2.786-2.786"/>
+	<path fill="none" stroke="#D2D2D2" stroke-width="0.645" stroke-miterlimit="10" d="M209.572,60.598
+		c0,1.538,1.248,2.786,2.786,2.786c1.539,0,2.787-1.248,2.787-2.786"/>
+	<path fill="none" stroke="#D2D2D2" stroke-width="0.645" stroke-miterlimit="10" d="M192.854,71.536
+		c0-1.539,1.248-2.786,2.786-2.786c1.539,0,2.786,1.247,2.786,2.786"/>
+	<path fill="none" stroke="#D2D2D2" stroke-width="0.645" stroke-miterlimit="10" d="M198.427,71.536
+		c0-1.539,1.248-2.786,2.787-2.786S204,69.997,204,71.536"/>
+	<path fill="none" stroke="#D2D2D2" stroke-width="0.645" stroke-miterlimit="10" d="M204,71.536c0-1.539,1.247-2.786,2.786-2.786
+		s2.786,1.247,2.786,2.786"/>
+	<path fill="none" stroke="#D2D2D2" stroke-width="0.645" stroke-miterlimit="10" d="M209.572,71.536
+		c0-1.539,1.248-2.786,2.786-2.786c1.539,0,2.787,1.247,2.787,2.786"/>
+	
+		<line fill="none" stroke="#D2D2D2" stroke-width="0.645" stroke-miterlimit="10" x1="192.854" y1="65.603" x2="215.146" y2="65.603"/>
+	
+		<line fill="none" stroke="#D2D2D2" stroke-width="0.645" stroke-miterlimit="10" x1="192.854" y1="66.531" x2="215.146" y2="66.531"/>
+	
+		<rect x="188.521" id="transformer" y="50.587" fill="none" stroke="#626262" stroke-width="1.935" stroke-miterlimit="10" width="30.959" height="30.96"/>
+</g>
+<circle fill="#626262" cx="146.251" cy="66.532" r="3.035"/>
+<g id="inverter_2_">
+	
+		<line fill="none" stroke="#D2D2D2" stroke-width="0.645" stroke-miterlimit="10" x1="219.177" y1="184.257" x2="188.823" y2="214.61"/>
+	<g>
+		<path fill="#D2D2D2" d="M199.597,191.835c-0.14,0.192-0.293,0.366-0.461,0.52c-0.168,0.154-0.357,0.277-0.564,0.371
+			c-0.209,0.095-0.446,0.143-0.713,0.143c-0.309,0-0.603-0.061-0.885-0.18c-0.283-0.118-0.555-0.246-0.818-0.387
+			c-0.262-0.139-0.52-0.268-0.772-0.385c-0.253-0.12-0.503-0.18-0.75-0.18c-0.317,0-0.582,0.121-0.796,0.364
+			c-0.213,0.243-0.378,0.497-0.497,0.767l-0.803-0.715c0.089-0.197,0.198-0.396,0.327-0.594c0.129-0.199,0.282-0.374,0.461-0.527
+			c0.178-0.154,0.381-0.277,0.609-0.372c0.228-0.095,0.484-0.142,0.772-0.142c0.269,0,0.542,0.061,0.825,0.178
+			c0.281,0.12,0.56,0.248,0.832,0.387s0.537,0.269,0.795,0.387c0.258,0.119,0.495,0.178,0.713,0.178
+			c0.148,0,0.285-0.033,0.409-0.103s0.237-0.159,0.341-0.269c0.105-0.108,0.201-0.23,0.291-0.363
+			c0.089-0.135,0.178-0.266,0.268-0.395l0.802,0.714C199.864,191.44,199.735,191.642,199.597,191.835z"/>
+	</g>
+	<g>
+		<path fill="#D2D2D2" d="M215.076,207.314c-0.14,0.192-0.292,0.366-0.46,0.521c-0.169,0.153-0.357,0.277-0.565,0.371
+			s-0.446,0.142-0.713,0.142c-0.308,0-0.603-0.06-0.884-0.179c-0.283-0.119-0.556-0.247-0.818-0.387
+			c-0.263-0.139-0.52-0.268-0.773-0.386c-0.252-0.12-0.502-0.179-0.75-0.179c-0.316,0-0.582,0.121-0.795,0.363
+			c-0.213,0.244-0.379,0.498-0.498,0.767l-0.803-0.714c0.09-0.198,0.199-0.396,0.328-0.595c0.128-0.198,0.281-0.374,0.461-0.526
+			c0.178-0.154,0.381-0.277,0.608-0.373c0.228-0.094,0.485-0.141,0.772-0.141c0.269,0,0.543,0.06,0.825,0.179
+			c0.282,0.118,0.56,0.247,0.832,0.386s0.537,0.268,0.796,0.387c0.257,0.119,0.494,0.178,0.713,0.178
+			c0.148,0,0.285-0.034,0.408-0.104c0.124-0.068,0.238-0.158,0.342-0.268c0.104-0.109,0.201-0.23,0.291-0.363
+			c0.088-0.135,0.178-0.266,0.267-0.395l0.802,0.713C215.345,206.92,215.215,207.121,215.076,207.314z"/>
+	</g>
+</g>
+<g id="bypass_3_">
+	<polygon fill="none" stroke="#D2D2D2" stroke-width="0.645" stroke-miterlimit="10" points="201.097,142.425 206.902,145.327 
+		206.902,139.522 	"/>
+	
+		<line fill="none" stroke="#D2D2D2" stroke-width="0.645" stroke-miterlimit="10" x1="206.902" y1="142.425" x2="201.097" y2="142.425"/>
+	<polyline fill="none" stroke="#D2D2D2" stroke-width="0.645" stroke-miterlimit="10" points="199.646,146.939 199.646,145.488 
+		201.097,144.037 201.097,145.327 201.097,139.522 	"/>
+	<polygon fill="none" stroke="#D2D2D2" stroke-width="0.645" stroke-miterlimit="10" points="206.902,135.33 201.097,132.428 
+		201.097,138.232 	"/>
+	
+		<line fill="none" stroke="#D2D2D2" stroke-width="0.645" stroke-miterlimit="10" x1="201.097" y1="135.33" x2="206.902" y2="135.33"/>
+	<polyline fill="none" stroke="#D2D2D2" stroke-width="0.645" stroke-miterlimit="10" points="206.902,135.33 212.708,135.33 
+		212.708,142.425 206.902,142.425 201.097,142.425 195.292,142.425 195.292,135.33 201.097,135.33 	"/>
+	<polyline fill="none" stroke="#D2D2D2" stroke-width="0.645" stroke-miterlimit="10" points="208.354,130.814 208.354,132.267 
+		206.902,133.718 206.902,132.428 206.902,138.232 	"/>
+	
+		<line fill="none" stroke="#D2D2D2" stroke-width="0.4837" stroke-miterlimit="10" x1="188.521" y1="138.877" x2="195.292" y2="138.877"/>
+	
+		<line fill="none" stroke="#D2D2D2" stroke-width="0.4837" stroke-miterlimit="10" x1="219.479" y1="138.877" x2="212.708" y2="138.877"/>
+	<polyline fill="none" stroke="#D2D2D2" stroke-width="1.29" stroke-miterlimit="10" points="188.521,127.187 194.647,127.187 
+		200.452,127.187 	"/>
+	<polyline fill="none" stroke="#D2D2D2" stroke-width="1.29" stroke-miterlimit="10" points="219.479,127.187 212.062,127.187 
+		206.257,127.187 201.097,126.291 	"/>
+	
+		<rect id="switch" x="188.521" y="117.593" fill="none" stroke="#626262" stroke-width="2" stroke-miterlimit="10" width="30.959" height="30.96"/>
+</g>
+<line fill="none" stroke="#626262" stroke-width="2" stroke-miterlimit="10" x1="204" y1="183.953" x2="204" y2="148.553"/>
+<line fill="none" stroke="#626262" stroke-width="2" stroke-miterlimit="10" x1="204" y1="117.593" x2="204" y2="81.547"/>
+<rect id="inverter" x="188.823" y="184.257" fill="none" stroke="#626262" stroke-width="2" stroke-miterlimit="10" width="30.354" height="30.354"/>
+</svg>
