@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html ng-app="app">
+  <head>  	 		
+	<title>Angular - Remote HMI App</title>
+	
+	<!-- Meta Tag for the screen to be responsive -->
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<link rel="stylesheet" href="css/font-awesome.min.css">	
+	<link rel="stylesheet" href="dist/abb-components/fonts/fontello-pcs200/css/fontello.css">
+	<link rel="stylesheet" href="dist/abb-components/css/abb-components-pec200.css">
+    <link rel="stylesheet" href="dist/bootstrap/bootstrap.min.css">				
+	<link rel="stylesheet" href="dist/angular/xeditable.css">
+	<link rel="stylesheet" href="dist/bootstrap/bootstrap-switch.css">
+	<link rel="stylesheet" href="dist/angular/angular-range-slider.css">
+	<link rel="stylesheet" href="css/style.css">	
+	<script src="dist/jquery/jquery.min.js"></script>
+	<script src="dist/bootstrap/bootstrap-switch.js"></script>
+	<script src="dist/angular/angular.js"></script>
+    <script src="dist/angular/angular-route.js"></script>   	
+	<script src="dist/angular/angular-range-slider.js"></script>
+    <script src="dist/bootstrap/bootstrap.min.js"></script>		
+	<script src="dist/charts/Chart.min.js"></script>	
+	<script src="dist/charts/angular-chart.min.js"></script>
+	<script src="dist/angular/xeditable.js"></script>			
+	<script src="dist/angular/angular-animate.js"></script>
+	<script src="dist/angular/angular-sanitize.js"></script>
+	<script src="js/constants.js"></script>		
+	<script src="js/script.js"></script>	
+	<script src="js/filters/filter.js"></script>	
+  </head>
+  
+  <body>
+    <div class="main_container" ng-init="isVisible=true" ng-controller="MainController">				
+		<div class="col-xs-1 main-menu-layout">			
+			<ul class="nav nav-tabs nav-stacked main-menu" active-link>				
+				<li class="icon-container">
+					<img style="visibility: hidden" ng-if="routeFlow.home=='home'" class="logo" src="./images/{{logo}}.png" />
+					<i ng-if="routeFlow.home!='home'" class="fa fa-arrow-circle-o-left graph-table-glyphicon" style="margin-left: 10px;padding: 0px 2px;color: white;" aria-hidden="true" ng-click="routeHomePage();"></i>
+				</li>	
+				<li class="icon-container active-link"><a href="#/{{routeFlow.home}}"><img src="./images/icons/nav/UI_Home_24.png" /></a></li>
+				<li class="icon-container">					
+					<a href="#/event">
+						<label id="active-event-counter-id" class="event-notify-hide event-notify">{{eventCounter}}</label>
+						<img src="./images/icons/nav/UI_Eventlog_24.png" />
+					</a>
+				</li>
+				<li class="icon-container"><a href="#/{{routeFlow.meters}}"><img src="./images/icons/nav/UI_Meters_24.png" /></a></li>
+				<li class="icon-container"><a href="#/{{routeFlow.settings}}"><img src="./images/icons/nav/UI_Settings_24.png" /></a></li>													
+				<li class="icon-container"><a href="#/service"><img src="./images/icons/nav/UI_Service_24.png" /></a></li>									
+				<li class="icon-container"><a href="#/about"><img src="./images/icons//nav/UI_About_24.png" /></a></li>
+				<li class="icon-container"><a href="#/help"><img src="./images/icons/nav/UI_Help_24.png" /></a></li>
+				<li class="icon-container" style="margin-top: 100px;">
+					<a href="#/login"><img src="./images/icons/nav/UI_UserInCircle_24.png" />
+					<div style="margin-left: -5px;">service</div></a>
+				</li>	
+			</ul>
+		</div>
+		
+		<div class="content-class col-xs-11" style="background-color: {{bgTheme}}">
+		
+			<div id="content-view-id" class="clearfix" style="width: calc(100vw - 315px); float: left;">
+				<ng-view></ng-view>	
+			</div>
+
+			<!-- Side Panel -->
+			<div class="pdu-home-row1 pdu-home-col4" id="side-panel-id">
+				<div class="pdu-metering-side-panel">	
+					<table class="table pdu-metering-side-panel-table">
+						<tbody>
+							<tr class="pdu-metering-side-panel-header">
+								<td class="pdu-metering-side-panel-header-left" style="background:#222222; border:0">
+									<div>
+										Power Distribution
+									</div>
+								</td>
+								<td class="pdu-metering-side-panel-header-right" style="background:#222222; border:0">
+									<img class="logo" src="./images/ABB_Logo_Screen_RGB_25px_@1x.png">
+								</td>
+							</tr>
+							<tr>
+								<td class="pdu-metering-side-panel-content" colspan="2" style="background:#222222; border:0;">											
+									<div>								
+										<table style="background:#222222; margin-bottom:0;" class="table">
+											<tbody><tr>
+												
+												<td style="text-align: center; color: #858585;" class="ng-binding">
+													{{aboutInfo.Name}}
+												</td>
+												
+											</tr>
+										</tbody></table>
+									</div>
+								</td>
+							</tr>
+						</tbody>				
+					</table>
+				</div>
+				<div class="pdu-metering-side-panel">	
+					<table class="table pdu-metering-side-panel-table">
+						<tbody>
+							<tr>
+								<td class="pdu-metering-side-panel-content" colspan="2" style="background:#222222; border:0; padding-top: 15px;">											
+									<div>								
+										<table style="background:#222222; margin-bottom:0;" class="table">
+											<tbody><tr>
+												<td class="col-xs-6 ng-binding" style="text-align: center; color: #d2d2d2; font-size: 15px;">	
+													{{dateAndTime.Time}} {{Meridiem}}
+												</td>
+											</tr>
+											<tr>
+												<td class="col-xs-6 ng-binding" style="text-align: center; color: #858585; font-family: HelveticaNeueETPro-Light; padding-top: 15px;">	
+													{{Day}} {{customDateShort}}
+												</td>
+											</tr>
+										</tbody></table>
+									</div>
+								</td>
+							</tr>
+						</tbody>				
+					</table>
+				</div>
+				<div class="pdu-metering-side-panel">	
+					<table class="table pdu-metering-side-panel-table">
+						<tbody>
+							<tr class="pdu-metering-side-panel-header">
+								<td class="pdu-metering-side-panel-header-left" style="background:#222222; border:0">
+									<div>
+										Status
+									</div>
+								</td>
+								<td class="pdu-metering-side-panel-header-right" style="background:#222222; border:0">
+								</td>
+							</tr>
+							<tr>
+								<td class="pdu-metering-side-panel-content" colspan="2" style="background:#222222; border:0;">											
+									<div>								
+										<table style="background:#222222; margin-bottom:0;" class="table">
+											<tbody><tr>
+												<td class="col-xs-6" style="text-align: center; color: #858585;">	
+													<img width="24" height="24" src="./images/icons/status/{{systemStateSource}}.png" class="ng-scope">
+												</td>
+											</tr>
+											<tr>
+												<td class="col-xs-6 ng-binding" style="text-align: center; color: #858585;">	
+													{{systemState}}
+												</td>
+											</tr>
+										</tbody></table>
+									</div>
+								</td>
+							</tr>
+						</tbody>				
+					</table>
+				</div>
+				<div class="pdu-metering-side-panel pdu-metering-side-panel-service">	
+					<table class="table pdu-metering-side-panel-table" style="height: 100%">
+						<tbody>									
+							<tr>
+								<td class="pdu-metering-side-panel-content" colspan="2" style="background:#222222; border:0; padding-top:15px; vertical-align: bottom; padding-bottom: 0px;">											
+									<div>								
+										<table style="background:#222222; margin-bottom:0;" class="table">																										
+											<tbody>
+												<tr>
+													<td class="col-xs-6 pdu-metering-side-panel-content-left">	
+														<img width="20" height="20" src="./images/icons/nav/UI_UserInCircle_24.png">
+													</td>
+													<td class="col-xs-6 pdu-metering-side-panel-content-right">	
+														Service
+													</td>
+												</tr>
+												<tr>
+													<td class="col-xs-6 pdu-metering-side-panel-content-left">	
+														IP
+													</td>
+													<td class="col-xs-6 pdu-metering-side-panel-content-right ng-binding">	
+														{{networkDetails.IP}}
+													</td>
+												</tr>
+												<tr>
+													<td class="col-xs-6 pdu-metering-side-panel-content-left">	
+														Location
+													</td>
+													<td class="col-xs-6 pdu-metering-side-panel-content-right ng-binding">	
+														{{aboutInfo.Location}}
+													</td>
+												</tr>
+												<tr>
+													<td class="col-xs-6 pdu-metering-side-panel-content-left">	
+														Serial No
+													</td>
+													<td class="col-xs-6 pdu-metering-side-panel-content-right ng-binding">	
+														{{aboutInfo.SerialNo}}
+													</td>
+												</tr>
+												<tr>
+													<td class="col-xs-6 pdu-metering-side-panel-content-left">	
+														Rating
+													</td>
+													<td class="col-xs-6 pdu-metering-side-panel-content-right ng-binding">	
+														{{rating.kW}} kVA
+													</td>
+												</tr>
+												<tr>
+													<td class="pdu-metering-side-panel-content-left" colspan="2" style="font-size: 10px; padding-top: 15px; text-align: right; padding-right: 5px; ">	
+														Version: {{versionNumber}}
+													</td>
+												</tr>
+												<tr>
+													<td class="pdu-metering-side-panel-content-left" colspan="2" style="font-size: 10px; text-align: right; padding-right: 5px; padding-top: 0;">														
+														Build: {{buildNumber}}
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</td>
+							</tr>
+						</tbody>				
+					</table>
+				</div>
+			</div>
+		</div>		
+		
+		<div class="clearfix visible-lg"></div>
+		
+	</div>	
+  </body>  
+</html>
